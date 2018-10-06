@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="lineViewModel"
+            type="com.moviesdb.moviesdbmvvm.viewmodel.MoviesLineViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/some"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hello"/>
+        <TextView
+            android:id="@+id/rowTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{lineViewModel.rowName}"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:text="See more"
+            android:onClick="@{v->lineViewModel.onSeeMoreIrems()}"
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/moviesLinerRV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:data = "@{lineViewModel.movies}"
+            />
+    </LinearLayout>
+
+</layout>
