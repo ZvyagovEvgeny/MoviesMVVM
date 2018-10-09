@@ -14,7 +14,9 @@ public class MoviesLineAdapter extends ViewModelAdapter {
     private Picasso picasso;
     public MoviesLineAdapter(Picasso picasso){
         this.picasso = picasso;
-        registerCell(MovieListItemViewModel.class, R.layout.movies_line_movie_item,BR.movieItemVievModel);
+        registerCell(MovieListItemViewModel.class, R.layout.movies_line_movie_item,BR.viewModel);
+        PicassoWrapper picassoWrapper = new PicassoWrapper(picasso);
+        addGlobalItem(BR.picassoWrapper,picassoWrapper);
     }
 
     @Override

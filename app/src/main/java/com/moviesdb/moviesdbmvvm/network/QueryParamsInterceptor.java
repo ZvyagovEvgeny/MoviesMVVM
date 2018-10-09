@@ -27,10 +27,8 @@ public class QueryParamsInterceptor implements Interceptor {
 
         HttpUrl.Builder builder = originalHttpUrl.newBuilder();
 
-        Collection<String> keys = values.values();
-        for(String key: keys){
-            String val = values.get(key);
-            builder.addQueryParameter(key,val);
+        for(Map.Entry<String,String> param : values.entrySet()){
+            builder.addQueryParameter(param.getKey(),param.getValue());
         }
 
         HttpUrl url = builder.build();

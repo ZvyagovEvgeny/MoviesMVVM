@@ -3,15 +3,22 @@ package com.moviesdb.moviesdbmvvm.activity.adapter;
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
 import android.support.design.circularreveal.CircularRevealWidget;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.util.Pair;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 
+import android.view.ViewParent;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.moviesdb.moviesdbmvvm.Movie;
 import com.moviesdb.moviesdbmvvm.R;
 import com.moviesdb.moviesdbmvvm.activity.adapter.editable.TextWatcherAdapter;
+import com.moviesdb.moviesdbmvvm.viewmodel.MovieListItemViewModel;
 import com.moviesdb.moviesdbmvvm.viewmodel.MoviesLineViewModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -50,5 +57,21 @@ public class ObservableAdapters {
         if(recyclerView.getAdapter() instanceof ViewModelAdapter){
             ((ViewModelAdapter) recyclerView.getAdapter()).insertList(data);
         }
+    }
+
+    @BindingAdapter("data")
+    public static void bind(ViewPager viewPager,List<MovieListItemViewModel> data){
+        PagerAdapter adapter = viewPager.getAdapter();
+        if (adapter==null)return;
+        if(adapter instanceof MoviesCowerFlowFragmentAdapter){
+            ((MoviesCowerFlowFragmentAdapter) adapter).insertList(data);
+        }
+    }
+
+    @BindingAdapter({"imageUrl","picasso"})
+    public static void imageBind(ImageView imageView,  String url, Picasso picasso){
+        picasso.get()
+                .load(url)
+                .into(imageView);
     }
 }

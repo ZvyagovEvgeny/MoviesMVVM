@@ -19,6 +19,15 @@ import timber.log.Timber;
 public class OkHttpClientModule {
 
     @Provides
+    public OkHttpClient.Builder okHttpClientBuilder(Cache cache,
+                                                    HttpLoggingInterceptor httpLoggingInterceptor){
+        return new OkHttpClient()
+                .newBuilder()
+                .cache(cache)
+                .addInterceptor(httpLoggingInterceptor);
+    }
+
+    @Provides
     public OkHttpClient okHttpClient(Cache cache,
                                         HttpLoggingInterceptor httpLoggingInterceptor){
          return new OkHttpClient()

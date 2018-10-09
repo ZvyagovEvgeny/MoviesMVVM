@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">MoviesDBMVVM</string>
-    <string name="api_key_social_network">123</string>
+    <string name="api_key_social_network">de965e15417ebc808f2ad91a2608c5ac</string>
+    <string name="see_all">See All...</string>
 
     <array name="api_social_network">
         <item>api_key|1234546</item>

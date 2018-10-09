@@ -28,8 +28,8 @@ public class OpenMovieDBApiModule {
     public Retrofit getRetrofit(OkHttpClient okHttpClient,
                                 GsonConverterFactory gsonConverterFactory){
 
-        okHttpClient.interceptors().add(new
-                QueryParamsInterceptor(Constants.defaultParamsForOpenMovieDatabaseApi));
+//        okHttpClient.interceptors().add(new
+//                QueryParamsInterceptor(Constants.defaultParamsForOpenMovieDatabaseApi));
         return new Retrofit.Builder()
                 .client(okHttpClient)
                 .baseUrl(Constants.moviesDBSocialNetwork)

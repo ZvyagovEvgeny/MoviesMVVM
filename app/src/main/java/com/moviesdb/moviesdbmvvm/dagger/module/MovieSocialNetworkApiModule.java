@@ -1,12 +1,19 @@
 package com.moviesdb.moviesdbmvvm.dagger.module;
 
+import android.content.Context;
+
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
+import com.moviesdb.moviesdbmvvm.R;
+import com.moviesdb.moviesdbmvvm.dagger.context.ApplicationContext;
 import com.moviesdb.moviesdbmvvm.dagger.module.qualifier.SocialNetworkApiQualifier;
 import com.moviesdb.moviesdbmvvm.network.QueryParamsInterceptor;
 import com.moviesdb.moviesdbmvvm.utils.Constants;
 import com.moviesdb.moviesdbmvvm.dagger.scope.MovieDBApplicationScope;
 import com.moviesdb.moviesdbmvvm.network.MovieSocialNetworkApi;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import dagger.Module;
 import dagger.Provides;
@@ -24,13 +31,14 @@ public class MovieSocialNetworkApiModule {
         return retrofit.create(MovieSocialNetworkApi.class);
     }
 
+
+
     @MovieDBApplicationScope
     @Provides
     @SocialNetworkApiQualifier
-    public Retrofit getRetrofit(OkHttpClient okHttpClient,
+    public Retrofit getRetrofit(@SocialNetworkApiQualifier OkHttpClient okHttpClient,
                                 GsonConverterFactory gsonConverterFactory){
 
-        okHttpClient.interceptors().add(new QueryParamsInterceptor(Constants.defaultParamsForSocialNetworkApi));
         return new Retrofit.Builder()
                 .client(okHttpClient)
                 .baseUrl(Constants.moviesDBSocialNetwork)
@@ -38,4 +46,18 @@ public class MovieSocialNetworkApiModule {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
+
+    @MovieDBApplicationScope
+    @Provides
+    @SocialNetworkApiQualifier
+    public OkHttpClient okHttpClient(OkHttpClient.Builder builder, @ApplicationContext  Context context){
+
+        String apiKey = context.getString(R.string.api_key_social_network);
+
+        Map<String,String> params = new HashMap<>();
+        params.put("api_key",apiKey);
+        builder.addInterceptor(new QueryParamsInterceptor(params));
+        return builder.build();
+    }
+
 }

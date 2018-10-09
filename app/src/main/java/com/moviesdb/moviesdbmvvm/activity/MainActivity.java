@@ -3,6 +3,9 @@ package com.moviesdb.moviesdbmvvm.activity;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.moviesdb.moviesdbmvvm.R;
@@ -27,8 +30,15 @@ public class  MainActivity extends BaseActivity<MainActivityViewModel> {
     private ActivityMainBinding activityMainBinding;
     private MainActivityViewModel mainActivityViewModel;
 
+    private static final  int PAGE_COUNT = 5;
+
     @Inject
     public MainActivityRecyclerViewAdapter mainActivityRecyclerViewAdapter;
+
+
+    public  MainActivity(){
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +79,7 @@ public class  MainActivity extends BaseActivity<MainActivityViewModel> {
        // activityMainBinding.mainRecyclerView.setLayoutManager(new LinearLayoutManager(this));
       //  activityMainBinding.mainRecyclerView.setAdapter(mainActivityAdapter);
     }
+
 
 
 }

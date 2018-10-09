@@ -10,19 +10,18 @@
             name="viewModel"
             type="com.moviesdb.moviesdbmvvm.viewmodel.MovieListItemViewModel" />
         <variable
-            name="picassoWrapper"
-            type="com.moviesdb.moviesdbmvvm.activity.adapter.PicassoWrapper"/>
-
+            name="adapter"
+            type="com.moviesdb.moviesdbmvvm.activity.adapter.MoviesCowerFlowFragmentAdapter" />
     </data>
 
+
+
     <ImageView
-
-        tools:imageUrl="@{viewModel.poster}"
-        tools:picasso="@{picassoWrapper.picasso}"
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:adjustViewBounds="true"
-        android:layout_margin="10dp"
-
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:imageUrl = "@{viewModel.backdrop}"
+        tools:picasso = "@{adapter.getPicasso()}"
         />
+
+
 </layout>
