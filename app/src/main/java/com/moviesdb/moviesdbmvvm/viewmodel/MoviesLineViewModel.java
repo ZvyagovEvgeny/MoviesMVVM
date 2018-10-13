@@ -2,14 +2,10 @@ package com.moviesdb.moviesdbmvvm.viewmodel;
 
 import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
-import android.util.Log;
 
-import com.moviesdb.moviesdbmvvm.Movie;
-import com.moviesdb.moviesdbmvvm.activity.adapter.ViewModelAdapter;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieBase;
-import com.moviesdb.moviesdbmvvm.model.themoviedb.MoviesListQueryTypes;
+import com.moviesdb.moviesdbmvvm.model.themoviedb.MoviesListType;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,17 +25,17 @@ public class MoviesLineViewModel extends BaseObservable {
 
     }
 
-    private MoviesListQueryTypes moviesListType;
+    private MoviesListType moviesListType;
 
 
     public List<MovieListItemViewModel> movies = new LinkedList<>();
 
-    public MoviesLineViewModel( MoviesListQueryTypes moviesListType){
+    public MoviesLineViewModel( MoviesListType moviesListType){
         this.moviesListType = moviesListType;
         this.rowName.set(moviesListType.getTitle());
     }
 
-    public MoviesLineViewModel( MoviesListQueryTypes moviesListType,
+    public MoviesLineViewModel( MoviesListType moviesListType,
                                 List<MovieBase> movieBases){
         this.moviesListType = moviesListType;
         this.rowName.set(moviesListType.getTitle());

@@ -19,6 +19,7 @@ import android.view.View;
 
 import com.moviesdb.moviesdbmvvm.R;
 import com.moviesdb.moviesdbmvvm.activity.PageFragment;
+import com.moviesdb.moviesdbmvvm.activity.ParalaxPagerTransformer;
 import com.moviesdb.moviesdbmvvm.databinding.MoviesCoverFlowBinding;
 import com.moviesdb.moviesdbmvvm.viewmodel.MovieListCowerFlowViewModel;
 import com.moviesdb.moviesdbmvvm.viewmodel.MoviesLineViewModel;
@@ -57,10 +58,12 @@ public class MainActivityRecyclerViewAdapter extends ViewModelAdapter{
 
         }
         if(viewDataBinding instanceof MoviesCoverFlowBinding){
+
             pagerAdapter = new MoviesCowerFlowFragmentAdapter(activity.getSupportFragmentManager(),picasso);
             MoviesCoverFlowBinding moviesCoverFlowBinding = (MoviesCoverFlowBinding)viewDataBinding;
             moviesCoverFlowBinding.pager.setAdapter(pagerAdapter);
-            moviesCoverFlowBinding.tabDots.setupWithViewPager(moviesCoverFlowBinding.pager, true);
+            moviesCoverFlowBinding.pager.setPageTransformer(false,new ParalaxPagerTransformer());
+          //  moviesCoverFlowBinding.tabDots.setupWithViewPager(moviesCoverFlowBinding.pager, true);
         }
     }
 

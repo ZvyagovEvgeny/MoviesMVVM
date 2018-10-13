@@ -35,6 +35,7 @@ public class MoviesCowerFlowFragmentAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         MovieListItemViewModel viewModel = movieListItemViewModels.get(position);
+
         PageFragment pageFragment  = PageFragment.newInstance();
         pageFragment.setViewModel(viewModel);
         pageFragment.setCowerFlowFragmentAdapter(this);

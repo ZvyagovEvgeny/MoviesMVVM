@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.moviesdb.moviesdbmvvm.R;
 
@@ -20,9 +22,15 @@ import com.moviesdb.moviesdbmvvm.dagger.component.MainActivityComponent;
 import com.moviesdb.moviesdbmvvm.dagger.module.MainActivityModule;
 import com.moviesdb.moviesdbmvvm.databinding.ActivityMainBinding;
 import com.moviesdb.moviesdbmvvm.viewmodel.MainActivityViewModel;
+import com.moviesdb.moviesdbmvvm.viewmodel.MainActivityVisability;
+import com.moviesdb.moviesdbmvvm.viewmodel.MainViewStatus;
 import com.moviesdb.moviesdbmvvm.viewmodel.ViewModelFactory;
 
+import java.util.Timer;
+
 import javax.inject.Inject;
+
+import timber.log.Timber;
 
 public class  MainActivity extends BaseActivity<MainActivityViewModel> {
 
@@ -73,6 +81,15 @@ public class  MainActivity extends BaseActivity<MainActivityViewModel> {
         activityMainBinding.setViewModel(mainActivityViewModel);
         activityMainBinding.setAdapter(mainActivityRecyclerViewAdapter);
         activityMainBinding.mainRecyclerView.setLayoutManager(new LinearLayoutManager(this) );
+        mainActivityViewModel.status.observe(this,this::onChangeState );
+
+
+
+    }
+
+    private void onChangeState(MainActivityVisability visability){
+        Log.d("Hello", "State: "+visability);
+
     }
 
     private void initMainRecyclerList(){
