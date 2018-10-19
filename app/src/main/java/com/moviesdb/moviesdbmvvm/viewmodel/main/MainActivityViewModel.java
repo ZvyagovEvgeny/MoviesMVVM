@@ -1,4 +1,4 @@
-package com.moviesdb.moviesdbmvvm.viewmodel;
+package com.moviesdb.moviesdbmvvm.viewmodel.main;
 
 import android.content.Context;
 import android.databinding.BaseObservable;
@@ -6,17 +6,25 @@ import android.databinding.ObservableField;
 
 
 import com.moviesdb.moviesdbmvvm.application.MoviesDBApplication;
-import com.moviesdb.moviesdbmvvm.dagger.module.qualifier.SocialNetworkApiQualifier;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieQueryResult;
 import com.moviesdb.moviesdbmvvm.network.EnumUtils;
 import com.moviesdb.moviesdbmvvm.network.MovieSocialNetworkApi;
 import com.moviesdb.moviesdbmvvm.utils.Constants;
+import com.moviesdb.moviesdbmvvm.viewmodel.main.movies_line.MovieListCowerFlowViewModel;
+import com.moviesdb.moviesdbmvvm.viewmodel.main.movies_line.MoviesLineViewModel;
+import com.moviesdb.moviesdbmvvm.viewmodel.start_activity_params.MovieDatailsActivity;
+import com.moviesdb.moviesdbmvvm.viewmodel.start_activity_params.SeeMoreActivity;
+import com.moviesdb.moviesdbmvvm.viewmodel.base.StoredViewModel;
+import com.moviesdb.moviesdbmvvm.viewmodel.start_activity_params.AnotherActivity;
+import com.moviesdb.moviesdbmvvm.viewmodel.base.CustomMutableLiveData;
+
+import org.reactivestreams.Subscription;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
-import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
 import timber.log.Timber;
@@ -74,16 +82,21 @@ public class MainActivityViewModel extends BaseObservable implements StoredViewM
                 Disposable disposable = moviesLineViewModel.getState().subscribe((data)->{
                     Timber.d(data.toString());
                 });
-                disposable = moviesLineViewModel.getOnItemClicked().subscribe((item)->{
-                    switch (item.type){
+               /* disposable = moviesLineViewModel.getOnItemClicked().subscribe((item)->{
+                    switch (item.){
                         case POSTER:
 
                     }
-                });
-                disposable = moviesLineViewModel.getOnSeeMoreItems().subscribe((o)->{
-                    anotherActivityPublishSubject.onNext(new SeeMoreActivity(type));
-                });
-                viewModel = moviesLineViewModel;
+                });*/
+               moviesLineViewModel.getOnSeeMoreItems()
+                       .map((f)->new SeeMoreActivity(type))
+                       .subscribe(anotherActivityPublishSubject);
+
+               moviesLineViewModel
+                       .getOnItemClicked()
+                       .subscribe(this::handleOnMovieItemClicked);
+
+               viewModel = moviesLineViewModel;
             }
 
             viewModelsToShow.add(viewModel);
@@ -91,6 +104,16 @@ public class MainActivityViewModel extends BaseObservable implements StoredViewM
 
         setStatus(ViewModelStatus.FIELDS_SHOWING);
     }
+
+    private void handleOnMovieItemClicked(MoviesLineViewModel.OnItemClicked onItemClicked){
+        if(onItemClicked.type==MovieClickedType.POSTER){
+            anotherActivityPublishSubject.onNext(new MovieDatailsActivity(onItemClicked.item.movie.get()));
+        }
+        if(onItemClicked.type == MovieClickedType.WISH_LIST_ICON){
+            addToWishList(onItemClicked.item.movie.get().getId());
+        }
+    }
+    private void addToWishList(int id){}
 
     private Observable<MovieQueryResult> getMoviesList(MovieSocialNetworkApi.ListType type){
       return api.getMovies(type,

@@ -1,9 +1,10 @@
-package com.moviesdb.moviesdbmvvm.viewmodel;
+package com.moviesdb.moviesdbmvvm.viewmodel.main.movies_line;
 
 import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieBase;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieQueryResult;
+import com.moviesdb.moviesdbmvvm.viewmodel.main.MovieClickedType;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -25,6 +26,7 @@ public class MoviesLineViewModel extends BaseObservable implements Disposable{
     private PublishSubject<MoviesLineState> stateSubject = PublishSubject.create();
     private PublishSubject<OnItemClicked> onItemClicked = PublishSubject.create();
     private PublishSubject<MoviesLineViewModel> onSeeMoreItems = PublishSubject.create();
+
     private Throwable lastError;
     private MoviesLineState state;
 
@@ -80,16 +82,23 @@ public class MoviesLineViewModel extends BaseObservable implements Disposable{
 
     private void setMoviesList(List<MovieListItemViewModel> viewModels){
         movies = viewModels;
-        for(MovieListItemViewModel viewModel:viewModels){
-            viewModel.onItemClicked.observeOn(AndroidSchedulers.mainThread()).subscribe(
-                    (type)->onItemClicked.onNext(new OnItemClicked(type,viewModel)));
+        for(MovieListItemViewModel itemViewModel:viewModels){
+
+            itemViewModel.onItemClicked
+                    .map((elementClickerd)->new OnItemClicked(elementClickerd,itemViewModel))
+                    .subscribe((d)->{
+                        Timber.d("Hello");
+                        onItemClicked.onNext(d);});
+
         }
 
         notifyChange();
     }
 
     public void onSeeMoreItems(){
+
         onSeeMoreItems.onNext(this);
+
     }
 
     private boolean disposed;
@@ -104,7 +113,7 @@ public class MoviesLineViewModel extends BaseObservable implements Disposable{
         return disposed;
     }
 
-    static class OnItemClicked{
+    public static class OnItemClicked{
         public MovieClickedType type;
         public MovieListItemViewModel item;
 

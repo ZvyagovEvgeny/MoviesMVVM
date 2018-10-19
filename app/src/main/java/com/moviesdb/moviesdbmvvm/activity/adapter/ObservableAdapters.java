@@ -2,26 +2,20 @@ package com.moviesdb.moviesdbmvvm.activity.adapter;
 
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
-import android.support.design.circularreveal.CircularRevealWidget;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.util.Pair;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 
-import android.view.ViewParent;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.moviesdb.moviesdbmvvm.Movie;
 import com.moviesdb.moviesdbmvvm.R;
 import com.moviesdb.moviesdbmvvm.activity.adapter.editable.TextWatcherAdapter;
-import com.moviesdb.moviesdbmvvm.viewmodel.MovieListItemViewModel;
-import com.moviesdb.moviesdbmvvm.viewmodel.MoviesLineViewModel;
+import com.moviesdb.moviesdbmvvm.viewmodel.main.movies_line.MovieListItemViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.concurrent.locks.ReadWriteLock;
 
 public class ObservableAdapters {
 

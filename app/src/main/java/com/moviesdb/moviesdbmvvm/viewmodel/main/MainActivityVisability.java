@@ -1,6 +1,8 @@
-package com.moviesdb.moviesdbmvvm.viewmodel;
+package com.moviesdb.moviesdbmvvm.viewmodel.main;
 
 import android.databinding.BaseObservable;
+
+import com.moviesdb.moviesdbmvvm.viewmodel.main.ViewModelStatus;
 
 public class MainActivityVisability extends BaseObservable{
     private ViewModelStatus viewModelStatus = ViewModelStatus.INITIAL_DOWNLOADS_IN_PROGRESS;

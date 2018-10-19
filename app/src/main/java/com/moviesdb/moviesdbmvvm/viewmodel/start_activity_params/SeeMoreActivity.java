@@ -1,10 +1,8 @@
-package com.moviesdb.moviesdbmvvm.viewmodel;
+package com.moviesdb.moviesdbmvvm.viewmodel.start_activity_params;
 
 import com.moviesdb.moviesdbmvvm.network.MovieSocialNetworkApi;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-
-public class SeeMoreActivity extends AnotherActivity{
+public class SeeMoreActivity extends AnotherActivity {
     public MovieSocialNetworkApi.ListType getListType() {
         return listType;
     }

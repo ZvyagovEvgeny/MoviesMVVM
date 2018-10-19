@@ -1,4 +1,4 @@
-package com.moviesdb.moviesdbmvvm.viewmodel;
+package com.moviesdb.moviesdbmvvm.viewmodel.main;
 
 public enum ViewModelStatus {
 

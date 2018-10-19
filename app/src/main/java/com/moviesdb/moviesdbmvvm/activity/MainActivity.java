@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 
-import com.moviesdb.moviesdbmvvm.Movie;
 import com.moviesdb.moviesdbmvvm.R;
 
 import com.moviesdb.moviesdbmvvm.activity.adapter.MainActivityRecyclerViewAdapter;
@@ -19,11 +18,11 @@ import com.moviesdb.moviesdbmvvm.dagger.module.MainActivityModule;
 import com.moviesdb.moviesdbmvvm.databinding.ActivityMainBinding;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieBase;
 import com.moviesdb.moviesdbmvvm.network.MovieSocialNetworkApi;
-import com.moviesdb.moviesdbmvvm.viewmodel.MainActivityViewModel;
-import com.moviesdb.moviesdbmvvm.viewmodel.MainActivityVisability;
-import com.moviesdb.moviesdbmvvm.viewmodel.MovieDatailsActivity;
-import com.moviesdb.moviesdbmvvm.viewmodel.SeeMoreActivity;
-import com.moviesdb.moviesdbmvvm.viewmodel.ViewModelFactory;
+import com.moviesdb.moviesdbmvvm.viewmodel.main.MainActivityViewModel;
+import com.moviesdb.moviesdbmvvm.viewmodel.main.MainActivityVisability;
+import com.moviesdb.moviesdbmvvm.viewmodel.start_activity_params.MovieDatailsActivity;
+import com.moviesdb.moviesdbmvvm.viewmodel.start_activity_params.SeeMoreActivity;
+import com.moviesdb.moviesdbmvvm.viewmodel.base.ViewModelFactory;
 
 import javax.inject.Inject;
 

@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.moviesdb.moviesdbmvvm.viewmodel.MovieListItemViewModel" />
+            type="com.moviesdb.moviesdbmvvm.viewmodel.main.movies_line.MovieListItemViewModel" />
         <variable
             name="picassoWrapper"
             type="com.moviesdb.moviesdbmvvm.activity.adapter.PicassoWrapper"/>

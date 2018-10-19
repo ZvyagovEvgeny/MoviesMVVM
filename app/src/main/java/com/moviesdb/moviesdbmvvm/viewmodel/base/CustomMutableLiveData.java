@@ -1,4 +1,4 @@
-package com.moviesdb.moviesdbmvvm.viewmodel;
+package com.moviesdb.moviesdbmvvm.viewmodel.base;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.databinding.BaseObservable;

@@ -3,11 +3,9 @@ package com.moviesdb.moviesdbmvvm.dagger.module;
 import com.moviesdb.moviesdbmvvm.activity.MainActivity;
 import com.moviesdb.moviesdbmvvm.activity.adapter.MainActivityRecyclerViewAdapter;
 import com.moviesdb.moviesdbmvvm.activity.adapter.MoviesLineAdapter;
-import com.moviesdb.moviesdbmvvm.dagger.module.qualifier.SocialNetworkApiQualifier;
 import com.moviesdb.moviesdbmvvm.dagger.scope.MainActivityScope;
-import com.moviesdb.moviesdbmvvm.network.MovieSocialNetworkApi;
-import com.moviesdb.moviesdbmvvm.viewmodel.MainActivityViewModel;
-import com.moviesdb.moviesdbmvvm.viewmodel.ViewModelFactory;
+import com.moviesdb.moviesdbmvvm.viewmodel.main.MainActivityViewModel;
+import com.moviesdb.moviesdbmvvm.viewmodel.base.ViewModelFactory;
 import com.squareup.picasso.Picasso;
 
 import dagger.Module;

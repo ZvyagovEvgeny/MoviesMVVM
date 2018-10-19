@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.moviesdb.moviesdbmvvm.activity.PageFragment;
-import com.moviesdb.moviesdbmvvm.viewmodel.MovieListItemViewModel;
+import com.moviesdb.moviesdbmvvm.viewmodel.main.movies_line.MovieListItemViewModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

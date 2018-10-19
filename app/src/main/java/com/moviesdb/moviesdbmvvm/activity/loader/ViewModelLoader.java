@@ -3,9 +3,9 @@ package com.moviesdb.moviesdbmvvm.activity.loader;
 import android.content.Context;
 import android.support.v4.content.Loader;
 
-import com.moviesdb.moviesdbmvvm.viewmodel.StoredViewModel;
+import com.moviesdb.moviesdbmvvm.viewmodel.base.StoredViewModel;
 
-import com.moviesdb.moviesdbmvvm.viewmodel.ViewModelFactory;
+import com.moviesdb.moviesdbmvvm.viewmodel.base.ViewModelFactory;
 
 import timber.log.Timber;
 

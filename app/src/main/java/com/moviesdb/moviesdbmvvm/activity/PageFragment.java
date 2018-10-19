@@ -1,24 +1,18 @@
 package com.moviesdb.moviesdbmvvm.activity;
 
-import android.arch.lifecycle.ViewModelProvider;
-import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.moviesdb.moviesdbmvvm.R;
 import com.moviesdb.moviesdbmvvm.activity.adapter.MoviesCowerFlowFragmentAdapter;
-import com.moviesdb.moviesdbmvvm.viewmodel.MovieListItemViewModel;
+import com.moviesdb.moviesdbmvvm.viewmodel.main.movies_line.MovieListItemViewModel;
 
 import com.moviesdb.moviesdbmvvm.databinding.MovieCoverFlowItemBinding;
 import com.squareup.picasso.Picasso;
-
-import java.util.Random;
 
 public class PageFragment extends Fragment{
 

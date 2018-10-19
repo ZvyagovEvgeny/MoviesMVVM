@@ -1,10 +1,11 @@
-package com.moviesdb.moviesdbmvvm.viewmodel;
+package com.moviesdb.moviesdbmvvm.viewmodel.main.movies_line;
 
 import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieBase;
+import com.moviesdb.moviesdbmvvm.viewmodel.main.MovieClickedType;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;

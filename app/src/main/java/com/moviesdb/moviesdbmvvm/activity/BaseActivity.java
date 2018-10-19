@@ -9,9 +9,8 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 
 import com.moviesdb.moviesdbmvvm.activity.loader.ViewModelLoader;
-import com.moviesdb.moviesdbmvvm.viewmodel.StoredViewModel;
-import com.moviesdb.moviesdbmvvm.viewmodel.StoredViewModel;
-import com.moviesdb.moviesdbmvvm.viewmodel.ViewModelFactory;
+import com.moviesdb.moviesdbmvvm.viewmodel.base.StoredViewModel;
+import com.moviesdb.moviesdbmvvm.viewmodel.base.ViewModelFactory;
 
 import timber.log.Timber;
 

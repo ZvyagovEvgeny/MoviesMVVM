@@ -12,7 +12,7 @@
 
         <variable
             name="viewModel"
-            type="com.moviesdb.moviesdbmvvm.viewmodel.MainActivityViewModel" />
+            type="com.moviesdb.moviesdbmvvm.viewmodel.main.MainActivityViewModel" />
     </data>
 
     <RelativeLayout

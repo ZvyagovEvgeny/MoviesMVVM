@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.moviesdb.moviesdbmvvm.viewmodel.MovieListCowerFlowViewModel" />
+            type="com.moviesdb.moviesdbmvvm.viewmodel.main.movies_line.MovieListCowerFlowViewModel" />
     </data>
 
     <android.support.v7.widget.CardView
