@@ -7,17 +7,25 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.moviesdb.moviesdbmvvm.R;
 import com.moviesdb.moviesdbmvvm.dagger.context.ApplicationContext;
 import com.moviesdb.moviesdbmvvm.dagger.module.qualifier.SocialNetworkApiQualifier;
+import com.moviesdb.moviesdbmvvm.network.EnumConverter;
 import com.moviesdb.moviesdbmvvm.network.QueryParamsInterceptor;
 import com.moviesdb.moviesdbmvvm.utils.Constants;
 import com.moviesdb.moviesdbmvvm.dagger.scope.MovieDBApplicationScope;
 import com.moviesdb.moviesdbmvvm.network.MovieSocialNetworkApi;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.annotation.Nullable;
 
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -28,10 +36,9 @@ public class MovieSocialNetworkApiModule {
     public MovieSocialNetworkApi getMovieSocialNetworkAPi(
             @SocialNetworkApiQualifier
                     Retrofit retrofit){
+
         return retrofit.create(MovieSocialNetworkApi.class);
     }
-
-
 
     @MovieDBApplicationScope
     @Provides
@@ -44,6 +51,7 @@ public class MovieSocialNetworkApiModule {
                 .baseUrl(Constants.moviesDBSocialNetwork)
                 .addConverterFactory(gsonConverterFactory)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(new EnumConverter())
                 .build();
     }
 

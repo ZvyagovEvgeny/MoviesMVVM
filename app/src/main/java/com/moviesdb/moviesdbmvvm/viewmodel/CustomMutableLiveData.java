@@ -6,6 +6,10 @@ import android.databinding.Observable;
 
 public class CustomMutableLiveData  <T extends BaseObservable> extends MutableLiveData<T> {
 
+    public  CustomMutableLiveData(T value){
+        setValue(value);
+    }
+
     @Override
     public void setValue(T value){
         super.setValue(value);

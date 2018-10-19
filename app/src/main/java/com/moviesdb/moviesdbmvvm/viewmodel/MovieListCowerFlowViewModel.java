@@ -1,33 +1,62 @@
 package com.moviesdb.moviesdbmvvm.viewmodel;
 
 import android.databinding.BaseObservable;
-import android.databinding.Observable;
 
-import com.moviesdb.moviesdbmvvm.Movie;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieBase;
+import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieQueryResult;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieListCowerFlowViewModel extends BaseObservable implements ViewModelList<MovieBase> {
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import timber.log.Timber;
+
+public class MovieListCowerFlowViewModel extends BaseObservable implements Disposable{
 
     public List<MovieListItemViewModel> moviesViewModels = new ArrayList<>();
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private boolean disposed = false;
 
-    public MovieListCowerFlowViewModel(List<MovieBase> movies) {
-        for(MovieBase movie : movies){
-            moviesViewModels.add(new MovieListItemViewModel(movie));
-        }
+    public MovieListCowerFlowViewModel(
+                               io.reactivex.Observable<MovieQueryResult> movies,
+                               Scheduler threadPool){
+
+        Disposable disposable = movies.subscribeOn(threadPool)
+                .map(this::convertResultToViewModels)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::setMoviesList,this::onError);
+
+        compositeDisposable.add(disposable);
     }
 
-    public MovieListCowerFlowViewModel() {
+    private List<MovieListItemViewModel> convertResultToViewModels(MovieQueryResult result){
+        List<MovieListItemViewModel> viewModels = new ArrayList<>();
+        for (MovieBase movieBase :result.getResults())
+            viewModels.add(new MovieListItemViewModel(movieBase));
+        return viewModels;
+    }
+
+    private void onError(Throwable e){
+        Timber.d(e);
+    }
+
+    private void setMoviesList(List<MovieListItemViewModel> viewModels){
+        moviesViewModels = viewModels;
+        notifyChange();
     }
 
     @Override
-    public void insertList(List<MovieListItemViewModel> list) {
-        moviesViewModels.clear();
-        for(MovieListItemViewModel viewModel : list){
-            moviesViewModels.add(viewModel);
-        }
-        notifyChange();
+    public void dispose() {
+        compositeDisposable.dispose();
+        compositeDisposable = new CompositeDisposable();
+        disposed = true;
+    }
+
+    @Override
+    public boolean isDisposed() {
+        return disposed;
     }
 }

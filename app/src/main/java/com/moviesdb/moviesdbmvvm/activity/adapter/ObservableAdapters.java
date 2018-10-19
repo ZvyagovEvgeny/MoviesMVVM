@@ -72,6 +72,7 @@ public class ObservableAdapters {
     public static void imageBind(ImageView imageView,  String url, Picasso picasso){
         picasso.get()
                 .load(url)
+                /*.placeholder(R.drawable.dravable_animation)*/
                 .into(imageView);
     }
 }

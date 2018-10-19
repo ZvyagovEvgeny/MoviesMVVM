@@ -14,73 +14,79 @@
             type="com.moviesdb.moviesdbmvvm.activity.adapter.MoviesCowerFlowFragmentAdapter" />
     </data>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="270dp"
-        android:background="@color/blackDark"
-        >
 
         <RelativeLayout
-               android:id="@+id/backdropLayout"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_alignParentTop="true">
+            android:layout_width="match_parent"
+            android:layout_height="270dp"
+            android:background="@color/black"
+            >
 
-
-            <ImageView
+            <RelativeLayout
+                android:id="@+id/backdropLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/backdrop"
-                tools:imageUrl="@{viewModel.backdrop}"
-                tools:picasso="@{adapter.getPicasso()}" />
+                android:layout_alignParentTop="true">
 
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_centerInParent="true"
-                android:src="@drawable/play_button" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/backdrop"
+                    tools:imageUrl="@{viewModel.backdrop}"
+                    tools:picasso="@{adapter.getPicasso()}" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/play_button" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/posterLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="15dp"
+                >
+
+                <ImageView
+                    android:id="@+id/moviePoster"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="15dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/poster_example"
+                    tools:imageUrl="@{viewModel.poster}"
+                    tools:picasso="@{adapter.getPicasso()}"
+                    />
+
+                <TextView
+                    android:id="@+id/movieTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_alignBottom="@+id/moviePoster"
+                    android:layout_toEndOf="@+id/moviePoster"
+                    android:text="@{viewModel.movie.title}"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+
 
 
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/posterLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="15dp"
-         >
-
-            <ImageView
-                android:id="@+id/moviePoster"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="15dp"
-                android:adjustViewBounds="true"
-                android:src="@drawable/poster_example"
-                tools:imageUrl="@{viewModel.poster}"
-                tools:picasso="@{adapter.getPicasso()}"
-                />
-
-            <TextView
-                android:id="@+id/movieTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_alignBottom="@+id/moviePoster"
-                android:layout_toEndOf="@+id/moviePoster"
-                android:text="@{viewModel.movie.title}"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-        </RelativeLayout>
 
 
 
-    </RelativeLayout>
+
 
 
 </layout>

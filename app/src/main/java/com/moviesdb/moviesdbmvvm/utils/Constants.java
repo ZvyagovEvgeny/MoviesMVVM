@@ -21,7 +21,8 @@ public class Constants {
         Map<String,String> map = new HashMap<>();
         String arr[] = context.getResources().getStringArray(R.array.moviesListTypes);
         for(String keyVal:arr){
-            String[] parsed = keyVal.split("|");
+            String sep = "\\|";
+            String[] parsed = keyVal.split(sep,2);
             map.put(parsed[0],parsed[1]);
         }
         return map;

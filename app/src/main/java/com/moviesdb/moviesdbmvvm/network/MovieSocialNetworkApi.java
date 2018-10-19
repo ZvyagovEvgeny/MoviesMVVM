@@ -1,5 +1,6 @@
 package com.moviesdb.moviesdbmvvm.network;
 
+import com.google.gson.annotations.SerializedName;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieQueryResult;
 
 
@@ -10,51 +11,17 @@ import retrofit2.http.Query;
 
 public interface MovieSocialNetworkApi {
 
-    public final String LANG_ENG = "en-US";
-    public final String REGION_USA = "US";
-
-    public enum ListType {
-
-        POP("popular"),UPCOMING("upcoming"),TOP_RATED("top_rated"),NOW_PLAYING("now_playing");
-
-        String path;
-        private ListType(String path){
-            this.path = path;
-        }
-
-        @Override
-        public String toString() {
-            return path;
-        }
+    enum ListType {
+        @SerializedName("popular") POP,
+        @SerializedName("upcoming") UPCOMING,
+        @SerializedName("top_rated") TOP_RATED,
+        @SerializedName("now_playing") NOW_PLAYING;
     }
-
-    public enum Region{
-
-        USA("US");
-
-        String path;
-        private Region(String path){
-            this.path = path;
-        }
-
-        @Override
-        public String toString() {
-            return path;
-        }
+    enum Region{
+        @SerializedName("US") USA
     }
-
-    public enum Lang{
-        ENG("en-US");
-
-        String path;
-        private Lang(String path){
-            this.path = path;
-        }
-
-        @Override
-        public String toString() {
-            return path;
-        }
+    enum Lang{
+       @SerializedName("en-US") ENG;
     }
 
     @GET("movie/{type}")

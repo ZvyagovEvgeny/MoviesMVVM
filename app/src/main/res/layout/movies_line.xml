@@ -11,39 +11,59 @@
             type="com.moviesdb.moviesdbmvvm.viewmodel.MoviesLineViewModel" />
     </data>
 
-    <LinearLayout
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/rowTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="{viewModel.rowName}"
-                android:layout_margin="10dp"
-                android:textSize="15sp"
+        android:translationZ="5dp"
+        android:minHeight="200dp"
+        card_view:cardCornerRadius="4dp"
+        android:layout_marginBottom="10dp"
 
-                android:layout_gravity="left|top"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="@string/see_all"
-                android:onClick="@{v->viewModel.onSeeMoreItems()}"
-                android:textSize="13dp"
-                android:layout_gravity="right|top"/>
-        </FrameLayout>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/moviesLinerRV"
+        >
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:data = "@{viewModel.movies}"
-            />
-    </LinearLayout>
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:gravity="start"
+                android:padding="10dp"
+                android:text="@{viewModel.rowName}"
+                android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/info_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+
+                    android:layout_alignParentTop="true"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:text="See More"
+                    android:textColor="@color/blue"
+                    android:textStyle="bold"
+                    android:textSize="10sp" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/moviesLinerRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_gravity="bottom"
+                tools:data="@{viewModel.movies}" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
 </layout>

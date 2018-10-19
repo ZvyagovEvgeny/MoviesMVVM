@@ -13,7 +13,7 @@ import com.squareup.picasso.Picasso;
 import dagger.Module;
 import dagger.Provides;
 
-@Module
+@Module()
 public class MainActivityModule {
 
     private final MainActivity mainActivity;
