@@ -1,13 +1,21 @@
 <resources>
     <string name="app_name">MoviesDBMVVM</string>
     <string name="api_key_social_network">de965e15417ebc808f2ad91a2608c5ac</string>
-    <string name="see_all">See All...</string>
+    <string name="see_all">See All</string>
 
     <array name="api_social_network">
         <item>api_key|1234546</item>
     </array>
     <array name="api_openDatabase">
         <item>api_key|1234546</item>
+    </array>
+
+
+    <array name="moviesListTypes">
+        <item>popular|Popular</item>
+        <item>upcoming|Upcoming</item>
+        <item>top_rated|Top Rated</item>
+        <item>now_playing|Now Playing</item>
     </array>
 
 

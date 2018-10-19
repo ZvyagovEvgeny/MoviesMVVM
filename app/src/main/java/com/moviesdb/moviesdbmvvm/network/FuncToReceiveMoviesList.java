@@ -4,7 +4,7 @@ import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieQueryResult;
 
 import io.reactivex.Observable;
 
-public interface FuncToRecieveMoviesList {
+public interface FuncToReceiveMoviesList {
 
     Observable<MovieQueryResult> getMovies(String lang,int page,String region);
 

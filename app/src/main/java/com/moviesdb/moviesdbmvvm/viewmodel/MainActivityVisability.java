@@ -1,25 +1,24 @@
 package com.moviesdb.moviesdbmvvm.viewmodel;
 
 import android.databinding.BaseObservable;
-import android.databinding.ObservableBoolean;
 
 public class MainActivityVisability extends BaseObservable{
-    private MainViewStatus mainViewStatus = MainViewStatus.INITIAL_DOWNLOADS_IN_PROGRESS;
+    private ViewModelStatus viewModelStatus = ViewModelStatus.INITIAL_DOWNLOADS_IN_PROGRESS;
 
-    public MainViewStatus getMainViewStatus() {
-        return mainViewStatus;
+    public ViewModelStatus getViewModelStatus() {
+        return viewModelStatus;
     }
 
     public boolean recyclerViewVisible;
     public boolean errorMessageVisible;
     public boolean initialProgressBarVisible;
 
-    public void setState(MainViewStatus state){
+    public void setState(ViewModelStatus state){
 
         errorMessageVisible = false;
         initialProgressBarVisible = false;
         recyclerViewVisible = false;
-        mainViewStatus = state;
+        viewModelStatus = state;
         switch (state){
             case ERROR:
                 errorMessageVisible = true;

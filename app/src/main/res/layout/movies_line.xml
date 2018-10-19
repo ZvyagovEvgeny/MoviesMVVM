@@ -22,19 +22,21 @@
                 android:id="@+id/rowTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.rowName}"
+                android:text="{viewModel.rowName}"
+                android:layout_margin="10dp"
+                android:textSize="15sp"
+
                 android:layout_gravity="left|top"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:text="@string/see_all"
-                android:onClick="@{v->viewModel.onSeeMoreIrems()}"
-                android:textSize="20sp"
+                android:onClick="@{v->viewModel.onSeeMoreItems()}"
+                android:textSize="13dp"
                 android:layout_gravity="right|top"/>
         </FrameLayout>
-
-
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/moviesLinerRV"
