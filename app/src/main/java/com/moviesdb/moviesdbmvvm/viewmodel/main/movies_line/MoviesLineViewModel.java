@@ -4,7 +4,6 @@ import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieBase;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieQueryResult;
-import com.moviesdb.moviesdbmvvm.viewmodel.main.MovieClickedType;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -20,26 +19,20 @@ import timber.log.Timber;
 
 public class MoviesLineViewModel extends BaseObservable implements Disposable{
 
+
+    //Observable Fields
     public ObservableField<String> rowName = new ObservableField<>("");
     public List<MovieListItemViewModel> movies = new LinkedList<>();
 
-    private PublishSubject<MoviesLineState> stateSubject = PublishSubject.create();
-    private PublishSubject<OnItemClicked> onItemClicked = PublishSubject.create();
-    private PublishSubject<MoviesLineViewModel> onSeeMoreItems = PublishSubject.create();
+    private PublishSubject<Event> eventsSubject = PublishSubject.create();
+
 
     private Throwable lastError;
-    private MoviesLineState state;
+    private boolean disposed;
+    private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    public Observable<MoviesLineViewModel> getOnSeeMoreItems() {
-        return onSeeMoreItems;
-    }
-
-    public Observable<MoviesLineState> getState() {
-        return stateSubject;
-    }
-
-    public Observable<OnItemClicked> getOnItemClicked() {
-        return onItemClicked;
+    public Observable<Event> getEventsSubject() {
+        return eventsSubject;
     }
 
     public Throwable getLastError() {
@@ -47,18 +40,17 @@ public class MoviesLineViewModel extends BaseObservable implements Disposable{
     }
 
     private void setState(MoviesLineState state){
-        this.state = state;
-        stateSubject.onNext(state);
-    }
+        //this.state = state;
 
-    private CompositeDisposable compositeDisposable = new CompositeDisposable();
+    }
 
     public MoviesLineViewModel(String listTitle,
                                     io.reactivex.Observable<MovieQueryResult> movies,
                                     Scheduler threadPool){
 
         this.rowName.set(listTitle);
-        Disposable disposable = movies.subscribeOn(threadPool)
+        Disposable disposable = movies
+                .subscribeOn(threadPool)
                 .map(this::convertResultToViewModels)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::setMoviesList,this::onError);
@@ -83,43 +75,24 @@ public class MoviesLineViewModel extends BaseObservable implements Disposable{
     private void setMoviesList(List<MovieListItemViewModel> viewModels){
         movies = viewModels;
         for(MovieListItemViewModel itemViewModel:viewModels){
-
-            itemViewModel.onItemClicked
-                    .map((elementClickerd)->new OnItemClicked(elementClickerd,itemViewModel))
-                    .subscribe((d)->{
-                        Timber.d("Hello");
-                        onItemClicked.onNext(d);});
-
+            itemViewModel.onItemClicked().subscribe(eventsSubject);
         }
-
         notifyChange();
     }
 
     public void onSeeMoreItems(){
-
-        onSeeMoreItems.onNext(this);
-
+        eventsSubject.onNext(new OnSeeMoreItemsEvent(this));
     }
 
-    private boolean disposed;
+
     @Override
     public void dispose() {
-        compositeDisposable.dispose();;
+        compositeDisposable.dispose();
         disposed = true;
     }
 
     @Override
     public boolean isDisposed() {
         return disposed;
-    }
-
-    public static class OnItemClicked{
-        public MovieClickedType type;
-        public MovieListItemViewModel item;
-
-        public OnItemClicked(MovieClickedType type, MovieListItemViewModel item) {
-            this.type = type;
-            this.item = item;
-        }
     }
 }

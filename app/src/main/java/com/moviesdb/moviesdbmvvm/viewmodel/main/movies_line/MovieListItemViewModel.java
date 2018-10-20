@@ -5,7 +5,6 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieBase;
-import com.moviesdb.moviesdbmvvm.viewmodel.main.MovieClickedType;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
@@ -17,14 +16,20 @@ public class MovieListItemViewModel extends BaseObservable {
     public ObservableField<String> poster = new ObservableField<>("");
     public ObservableBoolean trailerEnabled = new ObservableBoolean(false);
 
-    private PublishSubject<MovieClickedType> itemClickedObjectSubject = PublishSubject.create();
-    public Observable<MovieClickedType> onItemClicked;
+    private PublishSubject<Event> itemClickedObjectSubject = PublishSubject.create();
+
+    public Observable<Event> onItemClicked(){
+        return itemClickedObjectSubject;
+    }
 
     public  void onPosterClicked(){
 
-        itemClickedObjectSubject.onNext(MovieClickedType.POSTER);
+        itemClickedObjectSubject.onNext(new OnMovieItemSelected(this,ItemClickedEventType.POSTER));
     }
 
+    public void onWishListClicked(){
+        itemClickedObjectSubject.onNext(new OnMovieItemSelected(this,ItemClickedEventType.WISH_LIST_ICON));
+    }
 
 
     public final String imagePrefix = "https://image.tmdb.org/t/p/w500/";
@@ -32,7 +37,7 @@ public class MovieListItemViewModel extends BaseObservable {
     public final String imagePrefixOriginal = "https://image.tmdb.org/t/p/original";
 
     public MovieListItemViewModel(MovieBase movie){
-        onItemClicked = itemClickedObjectSubject;
+
         this.movie = new ObservableField<>(movie);
         String backdrop = imagePrefix + movie.getBackdropPath();
         String poster = imagePrefix + movie.getPosterPath();

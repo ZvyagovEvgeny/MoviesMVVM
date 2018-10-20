@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.moviesdb.moviesdbmvvm.R;
 
@@ -17,6 +18,7 @@ import com.moviesdb.moviesdbmvvm.dagger.component.MainActivityComponent;
 import com.moviesdb.moviesdbmvvm.dagger.module.MainActivityModule;
 import com.moviesdb.moviesdbmvvm.databinding.ActivityMainBinding;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieBase;
+import com.moviesdb.moviesdbmvvm.network.EnumUtils;
 import com.moviesdb.moviesdbmvvm.network.MovieSocialNetworkApi;
 import com.moviesdb.moviesdbmvvm.viewmodel.main.MainActivityViewModel;
 import com.moviesdb.moviesdbmvvm.viewmodel.main.MainActivityVisability;
@@ -26,6 +28,7 @@ import com.moviesdb.moviesdbmvvm.viewmodel.base.ViewModelFactory;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
@@ -69,15 +72,16 @@ public class  MainActivity extends BaseActivity<MainActivityViewModel> {
     @Override
     protected void onViewModelCreatedOrRestored(@NonNull MainActivityViewModel viewModel) {
         mainActivityViewModel = viewModel;
-        Disposable disposable =  mainActivityViewModel.getAnotherActivityObserver().subscribe((activity)->{
+        Disposable disposable =  mainActivityViewModel.getAnotherActivityObserver().observeOn(AndroidSchedulers.mainThread()).subscribe((activity)->{
            if(activity instanceof SeeMoreActivity){
                MovieSocialNetworkApi.ListType listType = ((SeeMoreActivity) activity).getListType();
 
+               Toast.makeText(this, EnumUtils.GetSerializedNameValue(listType),Toast.LENGTH_LONG).show();
            }
            if(activity instanceof MovieDatailsActivity){
               MovieBase movieBase = ((MovieDatailsActivity) activity).getMovieBase();
               Timber.d("Movie: "+movieBase.getOriginalTitle());
-
+              Toast.makeText(this, movieBase.getOriginalTitle(),Toast.LENGTH_LONG).show();
            }
         });
         initDataBinding();
