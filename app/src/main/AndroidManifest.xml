@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.moviesdb.moviesdbmvvm">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
-
 
     <application
         android:name=".application.MoviesDBApplication"
@@ -22,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".activity.MovieDetailsActivity"></activity>
     </application>
 
 </manifest>

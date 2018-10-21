@@ -22,8 +22,8 @@ import com.moviesdb.moviesdbmvvm.network.EnumUtils;
 import com.moviesdb.moviesdbmvvm.network.MovieSocialNetworkApi;
 import com.moviesdb.moviesdbmvvm.viewmodel.main.MainActivityViewModel;
 import com.moviesdb.moviesdbmvvm.viewmodel.main.MainActivityVisability;
-import com.moviesdb.moviesdbmvvm.viewmodel.start_activity_params.MovieDatailsActivity;
-import com.moviesdb.moviesdbmvvm.viewmodel.start_activity_params.SeeMoreActivity;
+import com.moviesdb.moviesdbmvvm.viewmodel.start_activity_params.MovieDatailsActivityParams;
+import com.moviesdb.moviesdbmvvm.viewmodel.start_activity_params.SeeMoreActivityParams;
 import com.moviesdb.moviesdbmvvm.viewmodel.base.ViewModelFactory;
 
 import javax.inject.Inject;
@@ -73,16 +73,7 @@ public class  MainActivity extends BaseActivity<MainActivityViewModel> {
     protected void onViewModelCreatedOrRestored(@NonNull MainActivityViewModel viewModel) {
         mainActivityViewModel = viewModel;
         Disposable disposable =  mainActivityViewModel.getAnotherActivityObserver().observeOn(AndroidSchedulers.mainThread()).subscribe((activity)->{
-           if(activity instanceof SeeMoreActivity){
-               MovieSocialNetworkApi.ListType listType = ((SeeMoreActivity) activity).getListType();
-
-               Toast.makeText(this, EnumUtils.GetSerializedNameValue(listType),Toast.LENGTH_LONG).show();
-           }
-           if(activity instanceof MovieDatailsActivity){
-              MovieBase movieBase = ((MovieDatailsActivity) activity).getMovieBase();
-              Timber.d("Movie: "+movieBase.getOriginalTitle());
-              Toast.makeText(this, movieBase.getOriginalTitle(),Toast.LENGTH_LONG).show();
-           }
+           activity.startActivity(this);
         });
         initDataBinding();
         initMainRecyclerList();

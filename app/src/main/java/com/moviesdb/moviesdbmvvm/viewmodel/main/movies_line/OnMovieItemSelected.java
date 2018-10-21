@@ -1,22 +1,14 @@
 package com.moviesdb.moviesdbmvvm.viewmodel.main.movies_line;
 
-public class OnMovieItemSelected extends Event{
+import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieBase;
 
-    private MovieListItemViewModel movie;
+public class OnMovieItemSelected{
 
-    public OnMovieItemSelected(MovieListItemViewModel movie, ItemClickedEventType eventType) {
-        super(movie);
-        this.movie = movie;
-        this.eventType = eventType;
+    public MovieListItemViewModel viewModel;
+    public ItemClickedEventType itemClickedEventType;
+
+    public OnMovieItemSelected(MovieListItemViewModel viewModel, ItemClickedEventType itemClickedEventType) {
+        this.viewModel = viewModel;
+        this.itemClickedEventType = itemClickedEventType;
     }
-
-    public MovieListItemViewModel getMovie() {
-        return movie;
-    }
-
-    public ItemClickedEventType getEventType() {
-        return eventType;
-    }
-
-    private ItemClickedEventType eventType;
 }

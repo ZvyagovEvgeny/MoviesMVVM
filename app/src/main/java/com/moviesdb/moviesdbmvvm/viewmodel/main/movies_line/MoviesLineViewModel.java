@@ -2,6 +2,9 @@ package com.moviesdb.moviesdbmvvm.viewmodel.main.movies_line;
 
 import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
+import android.widget.AdapterView;
+import android.widget.Button;
+
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieBase;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieQueryResult;
 
@@ -23,16 +26,19 @@ public class MoviesLineViewModel extends BaseObservable implements Disposable{
     //Observable Fields
     public ObservableField<String> rowName = new ObservableField<>("");
     public List<MovieListItemViewModel> movies = new LinkedList<>();
-
-    private PublishSubject<Event> eventsSubject = PublishSubject.create();
-
+    private PublishSubject<OnMovieItemSelected> onMovieItemSelected = PublishSubject.create();
+    private PublishSubject<MoviesLineButtonClickEvent> buttonClickEvent = PublishSubject.create();
 
     private Throwable lastError;
     private boolean disposed;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
-    public Observable<Event> getEventsSubject() {
-        return eventsSubject;
+    public Observable<MoviesLineButtonClickEvent> getButtonClickEvent() {
+        return buttonClickEvent;
+    }
+
+    public Observable<OnMovieItemSelected> getOnMovieItemSelected() {
+        return onMovieItemSelected;
     }
 
     public Throwable getLastError() {
@@ -73,15 +79,16 @@ public class MoviesLineViewModel extends BaseObservable implements Disposable{
     }
 
     private void setMoviesList(List<MovieListItemViewModel> viewModels){
+
         movies = viewModels;
         for(MovieListItemViewModel itemViewModel:viewModels){
-            itemViewModel.onItemClicked().subscribe(eventsSubject);
+            itemViewModel.onItemClicked().subscribe(onMovieItemSelected);
         }
         notifyChange();
     }
 
     public void onSeeMoreItems(){
-        eventsSubject.onNext(new OnSeeMoreItemsEvent(this));
+        buttonClickEvent.onNext(MoviesLineButtonClickEvent.SEE_MORE_ITEMS);
     }
 
 

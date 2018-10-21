@@ -45,11 +45,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-
+                    android:onClick="@{(v)->viewModel.onSeeMoreItems()}"
                     android:layout_alignParentTop="true"
                     android:gravity="start"
                     android:padding="10dp"
-                    android:text="See More"
+                    android:text="SEE MORE"
                     android:textColor="@color/blue"
                     android:textStyle="bold"
                     android:textSize="10sp" />

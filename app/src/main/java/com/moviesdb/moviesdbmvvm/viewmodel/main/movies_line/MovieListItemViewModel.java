@@ -16,9 +16,9 @@ public class MovieListItemViewModel extends BaseObservable {
     public ObservableField<String> poster = new ObservableField<>("");
     public ObservableBoolean trailerEnabled = new ObservableBoolean(false);
 
-    private PublishSubject<Event> itemClickedObjectSubject = PublishSubject.create();
+    private PublishSubject<OnMovieItemSelected> itemClickedObjectSubject = PublishSubject.create();
 
-    public Observable<Event> onItemClicked(){
+    public Observable<OnMovieItemSelected> onItemClicked(){
         return itemClickedObjectSubject;
     }
 
