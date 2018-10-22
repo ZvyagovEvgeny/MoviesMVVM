@@ -38,7 +38,7 @@ public class  MainActivity extends BaseActivity<MainActivityViewModel> {
     private ActivityMainBinding activityMainBinding;
     private MainActivityViewModel mainActivityViewModel;
 
-    private static final  int PAGE_COUNT = 5;
+    private boolean viewModelInited = false;
 
     @Inject
     public MainActivityRecyclerViewAdapter mainActivityRecyclerViewAdapter;
@@ -72,11 +72,17 @@ public class  MainActivity extends BaseActivity<MainActivityViewModel> {
     @Override
     protected void onViewModelCreatedOrRestored(@NonNull MainActivityViewModel viewModel) {
         mainActivityViewModel = viewModel;
-        Disposable disposable =  mainActivityViewModel.getAnotherActivityObserver().observeOn(AndroidSchedulers.mainThread()).subscribe((activity)->{
-           activity.startActivity(this);
-        });
+        initViewModel();
         initDataBinding();
         initMainRecyclerList();
+    }
+
+    private void initViewModel(){
+        if(viewModelInited)return;
+        Disposable disposable =  mainActivityViewModel.getAnotherActivityObserver().observeOn(AndroidSchedulers.mainThread()).subscribe((activity)->{
+            activity.startActivity(this);
+        });
+        viewModelInited = true;
     }
 
     private void initDataBinding() {

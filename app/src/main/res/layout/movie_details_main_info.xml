@@ -10,7 +10,7 @@
             type="com.moviesdb.moviesdbmvvm.activity.adapter.PicassoWrapper"/>
         <variable
             name="viewModel"
-            type="com.moviesdb.moviesdbmvvm.viewmodel.main.movies_line.MovieListCowerFlowViewModel" />
+            type="com.moviesdb.moviesdbmvvm.viewmodel.movie_details.MainInfoViewModel" />
     </data>
 
     <android.support.v7.widget.CardView
@@ -33,14 +33,15 @@
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/backdropImage"
-                    tools:imageUrl="@{viewModel.poster}"
-                    tools:picasso="@{picassoWrapper.picasso}"
+
                     android:src="@drawable/backdrop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:adjustViewBounds="true"
-                    android:onClick="@{(view)->viewModel.onPosterClicked()}"
+                    tools:imageUrl="@{viewModel.backdropPath}"
+                    tools:picasso="@{picassoWrapper.picasso}"
                     />
+
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -61,7 +62,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
-                        android:text="A Star Is Born"
+                        android:text="@{viewModel.movie.get().getTitle()}"
                         android:textSize="30sp"/>
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -70,17 +71,13 @@
                         >
                         <TextView
                             style="@style/MainMovieDetails"
-                            android:text="2018" />
+                            android:text="@{viewModel.realiseYear}" />
                         <TextView
                             style="@style/MainMovieDetails"
-                            android:text="R"/>
+                            android:text="@{viewModel.runtime}"/>
                         <TextView
                             style="@style/MainMovieDetails"
-                            android:text="16min"/>
-                        <TextView
-                            style="@style/MainMovieDetails"
-                            android:text="Drama, Music, Romance"/>
-
+                            android:text="@{viewModel.genres}"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -88,19 +85,7 @@
 
             </LinearLayout>
 
-
-
-
-
-
         </LinearLayout>
-
-
-
-
-
-
-
     </android.support.v7.widget.CardView>
 
 </layout>

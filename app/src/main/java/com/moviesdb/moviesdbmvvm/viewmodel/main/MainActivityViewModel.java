@@ -103,7 +103,7 @@ public class MainActivityViewModel extends BaseObservable implements StoredViewM
     private AnotherActivity handleOnMovieItemSelected(OnMovieItemSelected onMovieItemSelected){
         switch (onMovieItemSelected.itemClickedEventType){
             case POSTER:
-                return new MovieDatailsActivityParams(onMovieItemSelected.viewModel.movie.get());
+                anotherActivityPublishSubject.onNext(new MovieDatailsActivityParams(onMovieItemSelected.viewModel.movie.get()));
             case WISH_LIST_ICON:
                 break;
             default:

@@ -8,7 +8,7 @@
 
         <variable
             name="adapter"
-            type="com.moviesdb.moviesdbmvvm.activity.adapter.MainActivityRecyclerViewAdapter"/>
+            type="com.moviesdb.moviesdbmvvm.activity.adapter.MovieDetailsRecyclerViewAdapter"/>
 
         <variable
             name="viewModel"

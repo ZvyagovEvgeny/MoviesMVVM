@@ -1,6 +1,7 @@
 package com.moviesdb.moviesdbmvvm.network;
 
 import com.google.gson.annotations.SerializedName;
+import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieDetail;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieQueryResult;
 
 
@@ -30,25 +31,10 @@ public interface MovieSocialNetworkApi {
                                            @Query("language") Lang lang,
                                            @Query("region")Region region);
 
-    @GET("movie/popular")
-    Observable<MovieQueryResult> getPopularMovies(@Query("language") String lang,
-                                                  @Query("page") int page,
-                                                  @Query("region")String region);
-    @GET("movie/upcoming")
-    Observable<MovieQueryResult>  getUpcomingMovies(@Query("language") String lang,
-                                      @Query("page") int page,
-                                      @Query("region")String region);
 
-
-    @GET("movie/top_rated")
-    Observable<MovieQueryResult>  getTopRatedMovies(@Query("language") String lang,
-                                       @Query("page") int page,
-                                       @Query("region")String region);
-
-    @GET("movie/now_playing")
-    Observable<MovieQueryResult>  getNowPlayingMovies(@Query("language") String lang,
-                                       @Query("page") int page,
-                                       @Query("region")String region);
+    @GET("movie/{movie_id}")
+    Observable<MovieDetail> getMovieDetails(@Path("movie_id") int id,
+                                            @Query("language") Lang lang);
 
 
 }

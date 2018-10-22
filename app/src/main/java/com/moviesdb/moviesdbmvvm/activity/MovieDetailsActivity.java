@@ -1,14 +1,20 @@
 package com.moviesdb.moviesdbmvvm.activity;
 
+import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 
+import com.moviesdb.moviesdbmvvm.R;
 import com.moviesdb.moviesdbmvvm.activity.adapter.MainActivityRecyclerViewAdapter;
+import com.moviesdb.moviesdbmvvm.activity.adapter.MovieDetailsRecyclerViewAdapter;
 import com.moviesdb.moviesdbmvvm.application.MoviesDBApplication;
 import com.moviesdb.moviesdbmvvm.dagger.component.DaggerMovieDetailsComponent;
 import com.moviesdb.moviesdbmvvm.dagger.component.MovieDetailsComponent;
 import com.moviesdb.moviesdbmvvm.dagger.module.MovieDetailsModule;
+import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieDetail;
+import com.moviesdb.moviesdbmvvm.databinding.ActivityMovieDetailsBinding;
 import com.moviesdb.moviesdbmvvm.viewmodel.base.ViewModelFactory;
 import com.moviesdb.moviesdbmvvm.viewmodel.main.MainActivityVisability;
 import com.moviesdb.moviesdbmvvm.viewmodel.movie_details.MovieDetailsViewModel;
@@ -18,11 +24,16 @@ import javax.inject.Inject;
 public class MovieDetailsActivity extends BaseActivity<MovieDetailsViewModel> {
     //MovieDatabaseApi movieDatabaseApi;
    // private ActivityMainBinding activityMainBinding;
-    //private MovieDetailsViewModel movieDetailsActivity;
+    //private MovieDetailsViewModel viewModelFactory;
+
+    private MovieDetailsViewModel movieDetailsViewModel;
+    private ActivityMovieDetailsBinding activityMovieDetailsBinding;
 
     @Inject
-    public MainActivityRecyclerViewAdapter mainActivityRecyclerViewAdapter;
+    public MovieDetailsRecyclerViewAdapter movieDetailsRecyclerViewAdapter;
 
+    @Inject
+    public ViewModelFactory<MovieDetailsViewModel> viewModelFactory;
 
     public  MovieDetailsActivity(){
 
@@ -30,11 +41,14 @@ public class MovieDetailsActivity extends BaseActivity<MovieDetailsViewModel> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        int movieId = getIntent().getIntExtra("movieId", -1);
         MovieDetailsComponent movieDetailsComponent =
                 DaggerMovieDetailsComponent.builder()
-                .movieDetailsModule(new MovieDetailsModule(this))
+                .movieDetailsModule(new MovieDetailsModule(this,movieId))
                 .moviesDBComponent(MoviesDBApplication.get(this).getMoviesDBComponent())
                 .build();
+        movieDetailsComponent.injectActivity(this);
 
         super.onCreate(savedInstanceState);
     }
@@ -42,24 +56,25 @@ public class MovieDetailsActivity extends BaseActivity<MovieDetailsViewModel> {
     @NonNull
     @Override
     protected ViewModelFactory<MovieDetailsViewModel> getViewModelFactory() {
-        return ()->new MovieDetailsViewModel();
+        return viewModelFactory;
     }
 
     @Override
     protected void onViewModelCreatedOrRestored(@NonNull MovieDetailsViewModel viewModel) {
-      /*  movieDetailsActivity = viewModel;
+        movieDetailsViewModel = viewModel;
         initDataBinding();
-        initMainRecyclerList();*/
+        initMainRecyclerList();
     }
 
 
     private void initDataBinding() {
-      /*  activityMainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
-        activityMainBinding.setViewModel(mainActivityViewModel);
-        activityMainBinding.setAdapter(mainActivityRecyclerViewAdapter);
-        activityMainBinding.mainRecyclerView.setLayoutManager(new LinearLayoutManager(this) );
-        mainActivityViewModel.status.observe(this,this::onChangeState );
-*/
+        activityMovieDetailsBinding = DataBindingUtil.setContentView(this, R.layout.activity_movie_details);
+
+        activityMovieDetailsBinding.setViewModel(movieDetailsViewModel);
+        activityMovieDetailsBinding.setAdapter(movieDetailsRecyclerViewAdapter);
+        activityMovieDetailsBinding.mainRecyclerView.setLayoutManager(new LinearLayoutManager(this) );
+
+
 
 
     }
