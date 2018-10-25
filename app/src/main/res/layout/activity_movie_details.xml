@@ -32,13 +32,46 @@
             android:layout_centerInParent="true"
             android:text="@{viewModel.errorMessage}"
             android:visibility="@{viewModel.status.errorMessageVisible ? View.VISIBLE: View.GONE}"/>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/mainRecyclerView"
+
+        <!--<android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adapter="@{adapter}"
+            android:layout_height="wrap_content"
             tools:data="@{viewModel.viewModelsToShow}"
-            android:visibility="@{viewModel.status.recyclerViewVisible ? View.VISIBLE: View.GONE}"/>
+            android:adapter="@{adapter}"
+            android:visibility="@{viewModel.status.recyclerViewVisible ? View.VISIBLE: View.GONE}">
+
+        </android.support.v7.widget.RecyclerView>-->
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:id="@+id/movieHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/castListWrapper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                </RelativeLayout>
+
+
+
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
     </RelativeLayout>
 
 </layout>

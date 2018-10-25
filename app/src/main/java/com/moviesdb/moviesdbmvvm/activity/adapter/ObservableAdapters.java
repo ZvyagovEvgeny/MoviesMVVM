@@ -69,4 +69,5 @@ public class ObservableAdapters {
                 /*.placeholder(R.drawable.dravable_animation)*/
                 .into(imageView);
     }
+
 }

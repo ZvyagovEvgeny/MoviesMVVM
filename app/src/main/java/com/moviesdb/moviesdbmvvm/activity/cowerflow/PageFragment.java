@@ -1,4 +1,4 @@
-package com.moviesdb.moviesdbmvvm.activity;
+package com.moviesdb.moviesdbmvvm.activity.cowerflow;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;

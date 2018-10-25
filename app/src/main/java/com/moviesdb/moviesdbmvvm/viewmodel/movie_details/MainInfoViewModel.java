@@ -72,7 +72,4 @@ public class MainInfoViewModel extends BaseObservable {
         }
         return null;
     }
-
-
-
 }

@@ -1,6 +1,7 @@
 package com.moviesdb.moviesdbmvvm.network;
 
 import com.google.gson.annotations.SerializedName;
+import com.moviesdb.moviesdbmvvm.model.themoviedb.CreditsQueryResult;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieDetail;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieQueryResult;
 
@@ -35,6 +36,9 @@ public interface MovieSocialNetworkApi {
     @GET("movie/{movie_id}")
     Observable<MovieDetail> getMovieDetails(@Path("movie_id") int id,
                                             @Query("language") Lang lang);
+
+    @GET("movie/{movie_id}/credits")
+    Observable<CreditsQueryResult> getMovieCredits(@Path("movie_id") int id);
 
 
 }

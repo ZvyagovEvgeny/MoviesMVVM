@@ -12,10 +12,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.moviesdb.moviesdbmvvm.activity.fragments.MyListInitializer;
+
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import timber.log.Timber;
 
 public abstract class ViewModelAdapter extends RecyclerView.Adapter<ViewModelAdapter.MyViewHolder> {
 
@@ -37,6 +42,16 @@ public abstract class ViewModelAdapter extends RecyclerView.Adapter<ViewModelAda
         mCellInfoMap.put(objectClass, cellInfo);
     }
 
+    protected void registerCell(Class objectClass, @LayoutRes int layoutId,int bindingId, MyListInitializer myListInitializer){
+        CellInfo cellInfo = new CellInfo();
+        cellInfo.mBindingId = bindingId;
+        cellInfo.mLayoutId = layoutId;
+
+        cellInfo.myListInitializer = myListInitializer;
+        mCellInfoMap.put(objectClass, cellInfo);
+    }
+
+
     public void reload(){
         reload(null);
     }
@@ -47,7 +62,15 @@ public abstract class ViewModelAdapter extends RecyclerView.Adapter<ViewModelAda
 
     public void insertList(List<?> list){
         mItems.clear();
-        mItems.addAll(list);
+        if(list!=null)
+        {
+            mItems.addAll(list);
+            Timber.d("Adding items to adapter: "+list.size());
+        }
+        else{
+            Timber.d("List is null");
+        }
+
         notifyDataSetChanged();
     }
 
@@ -90,6 +113,15 @@ public abstract class ViewModelAdapter extends RecyclerView.Adapter<ViewModelAda
             ViewDataBinding binding = viewHolder.getBinding();
             binding.setVariable(cellInfo.mBindingId, item);
         }
+        if(cellInfo.myListInitializer!=null){
+
+            Map<Integer,Object> integerObjectMap = cellInfo.myListInitializer.getObjectMap();
+            ViewDataBinding binding = viewHolder.getBinding();
+            for(Map.Entry<Integer,Object> entry:integerObjectMap.entrySet()){
+                binding.setVariable(entry.getKey(),entry.getValue());
+            }
+        }
+
 
         if (position == getItemCount() - 2) loadMore();
     }
@@ -149,7 +181,13 @@ public abstract class ViewModelAdapter extends RecyclerView.Adapter<ViewModelAda
         private int mLayoutId;
         private int mBindingId;
 
+        private MyListInitializer myListInitializer;
 
+
+    }
+
+    public interface CellInitializer{
+        void initialize(ViewDataBinding dataBinding);
     }
 
     protected void onBind(ViewDataBinding viewGroup){

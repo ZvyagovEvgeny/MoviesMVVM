@@ -10,7 +10,7 @@ import android.util.Pair;
 import android.view.View;
 
 import com.moviesdb.moviesdbmvvm.R;
-import com.moviesdb.moviesdbmvvm.activity.ParalaxPagerTransformer;
+import com.moviesdb.moviesdbmvvm.activity.cowerflow.ParalaxPagerTransformer;
 import com.moviesdb.moviesdbmvvm.databinding.MoviesCoverFlowBinding;
 import com.moviesdb.moviesdbmvvm.viewmodel.main.movies_line.MovieListCowerFlowViewModel;
 import com.moviesdb.moviesdbmvvm.viewmodel.main.movies_line.MoviesLineViewModel;
@@ -31,7 +31,6 @@ public class MainActivityRecyclerViewAdapter extends ViewModelAdapter{
     AppCompatActivity activity;
     private Map<Object, ViewModelAdapter> adapterMap = new Hashtable<>();
     public List<Pair<Object,ViewModelAdapter>> itemsList;
-
 
     public MainActivityRecyclerViewAdapter(Picasso picasso,AppCompatActivity activity){
         registerCell(MoviesLineViewModel.class, R.layout.movies_line,BR.viewModel);

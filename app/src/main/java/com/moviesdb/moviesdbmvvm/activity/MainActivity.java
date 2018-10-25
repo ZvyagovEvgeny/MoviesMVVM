@@ -12,6 +12,7 @@ import com.moviesdb.moviesdbmvvm.R;
 import com.moviesdb.moviesdbmvvm.activity.adapter.MainActivityRecyclerViewAdapter;
 
 
+import com.moviesdb.moviesdbmvvm.activity.fragments.DetailsHeaderFragment;
 import com.moviesdb.moviesdbmvvm.application.MoviesDBApplication;
 import com.moviesdb.moviesdbmvvm.dagger.component.DaggerMainActivityComponent;
 import com.moviesdb.moviesdbmvvm.dagger.component.MainActivityComponent;
@@ -29,6 +30,7 @@ import com.moviesdb.moviesdbmvvm.viewmodel.base.ViewModelFactory;
 import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import timber.log.Timber;
 
@@ -76,12 +78,15 @@ public class  MainActivity extends BaseActivity<MainActivityViewModel> {
         initDataBinding();
         initMainRecyclerList();
     }
-
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
     private void initViewModel(){
         if(viewModelInited)return;
+        compositeDisposable.dispose();;
+        compositeDisposable = new CompositeDisposable();
         Disposable disposable =  mainActivityViewModel.getAnotherActivityObserver().observeOn(AndroidSchedulers.mainThread()).subscribe((activity)->{
             activity.startActivity(this);
         });
+        compositeDisposable.add(disposable);
         viewModelInited = true;
     }
 
@@ -90,7 +95,11 @@ public class  MainActivity extends BaseActivity<MainActivityViewModel> {
         activityMainBinding.setViewModel(mainActivityViewModel);
         activityMainBinding.setAdapter(mainActivityRecyclerViewAdapter);
         activityMainBinding.mainRecyclerView.setLayoutManager(new LinearLayoutManager(this) );
-        mainActivityViewModel.status.observe(this,this::onChangeState );
+
+
+
+
+       mainActivityViewModel.status.observe(this,this::onChangeState );
 
 
 

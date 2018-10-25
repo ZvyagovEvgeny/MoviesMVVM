@@ -1,4 +1,4 @@
-package com.moviesdb.moviesdbmvvm.activity;
+package com.moviesdb.moviesdbmvvm.activity.cowerflow;
 
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;

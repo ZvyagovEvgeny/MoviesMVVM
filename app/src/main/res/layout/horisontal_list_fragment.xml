@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="adapter"
+            type="com.moviesdb.moviesdbmvvm.activity.adapter.ViewModelAdapter"/>
+        <variable
+            name="viewModel"
+            type="com.moviesdb.moviesdbmvvm.viewmodel.HorizontalListViewModel" />
+    </data>
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:translationZ="5dp"
+        android:minHeight="200dp"
+        card_view:cardCornerRadius="4dp"
+        android:layout_marginBottom="10dp"
+
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:text="@{viewModel.listTitle}"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/info_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:gravity="start"
+                    android:onClick="@{(v)->viewModel.onSeeMoreItems()}"
+                    android:padding="10dp"
+                    android:text="@{viewModel.seeMoreText}"
+                    android:textColor="@color/blue"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                tools:data="@{viewModel.objects}"
+                 />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</layout>
