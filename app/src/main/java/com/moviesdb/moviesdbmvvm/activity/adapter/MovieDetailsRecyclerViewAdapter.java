@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import com.moviesdb.moviesdbmvvm.BR;
 import com.moviesdb.moviesdbmvvm.R;
 
-import com.moviesdb.moviesdbmvvm.viewmodel.movie_details.CastListVIewModel;
 import com.moviesdb.moviesdbmvvm.viewmodel.movie_details.MainInfoViewModel;
 
 import com.squareup.picasso.Picasso;

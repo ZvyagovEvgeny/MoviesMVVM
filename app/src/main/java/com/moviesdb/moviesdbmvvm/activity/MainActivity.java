@@ -4,27 +4,19 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
-import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import com.moviesdb.moviesdbmvvm.R;
 
 import com.moviesdb.moviesdbmvvm.activity.adapter.MainActivityRecyclerViewAdapter;
-
-
-import com.moviesdb.moviesdbmvvm.activity.fragments.DetailsHeaderFragment;
-import com.moviesdb.moviesdbmvvm.application.MoviesDBApplication;
+import com.moviesdb.moviesdbmvvm.application.App;
 import com.moviesdb.moviesdbmvvm.dagger.component.DaggerMainActivityComponent;
 import com.moviesdb.moviesdbmvvm.dagger.component.MainActivityComponent;
 import com.moviesdb.moviesdbmvvm.dagger.module.MainActivityModule;
 import com.moviesdb.moviesdbmvvm.databinding.ActivityMainBinding;
-import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieBase;
-import com.moviesdb.moviesdbmvvm.network.EnumUtils;
-import com.moviesdb.moviesdbmvvm.network.MovieSocialNetworkApi;
 import com.moviesdb.moviesdbmvvm.viewmodel.main.MainActivityViewModel;
-import com.moviesdb.moviesdbmvvm.viewmodel.main.MainActivityVisability;
-import com.moviesdb.moviesdbmvvm.viewmodel.start_activity_params.MovieDatailsActivityParams;
-import com.moviesdb.moviesdbmvvm.viewmodel.start_activity_params.SeeMoreActivityParams;
 import com.moviesdb.moviesdbmvvm.viewmodel.base.ViewModelFactory;
 
 import javax.inject.Inject;
@@ -32,7 +24,6 @@ import javax.inject.Inject;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import timber.log.Timber;
 
 public class  MainActivity extends BaseActivity<MainActivityViewModel> {
 
@@ -45,24 +36,30 @@ public class  MainActivity extends BaseActivity<MainActivityViewModel> {
     @Inject
     public MainActivityRecyclerViewAdapter mainActivityRecyclerViewAdapter;
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.main,menu);
+        menu.add("Hello");
+        return super.onCreateOptionsMenu(menu);
+    }
 
-    public  MainActivity(){
-
+    @Override
+    protected void initDagger(){
+        MainActivityComponent mainActivityComponent =
+                DaggerMainActivityComponent.builder()
+                        .mainActivityModule(new MainActivityModule(this))
+                        .moviesDBComponent(App.get(this).getMoviesDBComponent())
+                        .build();
+        mainActivityComponent.injectMainActivity(this);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        MainActivityComponent mainActivityComponent =
-                DaggerMainActivityComponent.builder()
-                        .mainActivityModule(new MainActivityModule(this))
-                        .moviesDBComponent(MoviesDBApplication.get(this).getMoviesDBComponent())
-                        .build();
-        mainActivityComponent.injectMainActivity(this);
-
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_main);
 
 
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
     @NonNull
@@ -74,16 +71,21 @@ public class  MainActivity extends BaseActivity<MainActivityViewModel> {
     @Override
     protected void onViewModelCreatedOrRestored(@NonNull MainActivityViewModel viewModel) {
         mainActivityViewModel = viewModel;
+        addMenuBinding(R.id.search_button,mainActivityViewModel.saveCommand, MenuCommandBindings.EnableBinding.enabled);
+        addMenuBinding(R.id.searchField,mainActivityViewModel.searchCommand,MenuCommandBindings.EnableBinding.enabled);
         initViewModel();
         initDataBinding();
         initMainRecyclerList();
     }
+
     CompositeDisposable compositeDisposable = new CompositeDisposable();
+
     private void initViewModel(){
         if(viewModelInited)return;
         compositeDisposable.dispose();;
         compositeDisposable = new CompositeDisposable();
-        Disposable disposable =  mainActivityViewModel.getAnotherActivityObserver().observeOn(AndroidSchedulers.mainThread()).subscribe((activity)->{
+        Disposable disposable =  mainActivityViewModel.getAnotherActivityObserver()
+                .observeOn(AndroidSchedulers.mainThread()).subscribe((activity)->{
             activity.startActivity(this);
         });
         compositeDisposable.add(disposable);
@@ -94,27 +96,13 @@ public class  MainActivity extends BaseActivity<MainActivityViewModel> {
         activityMainBinding = DataBindingUtil.setContentView(this,R.layout.activity_main);
         activityMainBinding.setViewModel(mainActivityViewModel);
         activityMainBinding.setAdapter(mainActivityRecyclerViewAdapter);
-        activityMainBinding.mainRecyclerView.setLayoutManager(new LinearLayoutManager(this) );
-
-
-
-
-       mainActivityViewModel.status.observe(this,this::onChangeState );
-
-
-
-    }
-
-    private void onChangeState(MainActivityVisability visability){
-        Log.d("Hello", "State: "+visability);
-
+        activityMainBinding.mainRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     private void initMainRecyclerList(){
        // activityMainBinding.mainRecyclerView.setLayoutManager(new LinearLayoutManager(this));
       //  activityMainBinding.mainRecyclerView.setAdapter(mainActivityAdapter);
     }
-
-
-
 }

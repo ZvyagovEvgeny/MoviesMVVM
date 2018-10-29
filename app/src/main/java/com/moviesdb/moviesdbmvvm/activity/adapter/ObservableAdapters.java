@@ -2,11 +2,13 @@ package com.moviesdb.moviesdbmvvm.activity.adapter;
 
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
+import android.opengl.Visibility;
 import android.support.v4.util.Pair;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -68,6 +70,12 @@ public class ObservableAdapters {
                 .load(url)
                 /*.placeholder(R.drawable.dravable_animation)*/
                 .into(imageView);
+    }
+
+    @BindingAdapter("visibility")
+    public static void visibilityAdapter(View view,Boolean visibility){
+        int i = visibility?View.VISIBLE:View.INVISIBLE;
+        view.setVisibility(i);
     }
 
 }

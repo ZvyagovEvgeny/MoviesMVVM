@@ -9,11 +9,18 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 
 import com.moviesdb.moviesdbmvvm.R;
+import com.moviesdb.moviesdbmvvm.activity.IMenuCallbackListener;
+import com.moviesdb.moviesdbmvvm.activity.IMenuHandler;
+import com.moviesdb.moviesdbmvvm.activity.MenuCommandBindings;
 import com.moviesdb.moviesdbmvvm.activity.adapter.ViewModelAdapter;
+import com.moviesdb.moviesdbmvvm.viewmodel.base.ViewModelBase;
 
 import java.util.List;
 import java.util.Map;
@@ -71,7 +78,11 @@ public abstract class MyFragment<T,K extends ViewDataBinding> extends Fragment{
 
     }
 
+
+
     protected void onBind(K  bind){}
+
+
 
 
 }

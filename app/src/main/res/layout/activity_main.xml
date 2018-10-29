@@ -15,30 +15,48 @@
             type="com.moviesdb.moviesdbmvvm.viewmodel.main.MainActivityViewModel" />
     </data>
 
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ProgressBar
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:indeterminate="true"
-            android:visibility="@{viewModel.status.initialProgressBarVisible ? View.VISIBLE: View.GONE}"
-            android:layout_centerInParent="true"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@{viewModel.errorMessage}"
-            android:visibility="@{viewModel.status.errorMessageVisible ? View.VISIBLE: View.GONE}"/>
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/mainRecyclerView"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adapter="@{adapter}"
-            tools:data="@{viewModel.viewModelsToShow}"
-            android:visibility="@{viewModel.status.recyclerViewVisible ? View.VISIBLE: View.GONE}"/>
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:title="Some message"></android.support.v7.widget.Toolbar>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ProgressBar
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:indeterminate="true"
+                tools:visibility="@{viewModel.status.initialProgressBarVisible}"
+                android:layout_centerInParent="true"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@{viewModel.errorMessage}"
+                tools:visibility="@{viewModel.status.errorMessageVisible}"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/mainRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:adapter="@{adapter}"
+                tools:data="@{viewModel.viewModelsToShow}"
+                tools:visibility="@{viewModel.status.recyclerViewVisible}" />
+        </RelativeLayout>
+
+    </LinearLayout>
 </layout>

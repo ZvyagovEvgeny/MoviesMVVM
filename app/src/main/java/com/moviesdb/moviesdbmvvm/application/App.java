@@ -12,21 +12,21 @@ import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-public class MoviesDBApplication extends Application {
+public class App extends Application {
 
     private Scheduler scheduler;
 
     private MoviesDBComponent moviesDBComponent;
-    public static MoviesDBApplication get(Activity activity){
-        return (MoviesDBApplication) activity.getApplication();
+    public static App get(Activity activity){
+        return (App) activity.getApplication();
     }
 
-    private static MoviesDBApplication get(Context context) {
-        return (MoviesDBApplication) context.getApplicationContext();
+    private static App get(Context context) {
+        return (App) context.getApplicationContext();
     }
 
-    public static MoviesDBApplication create(Context context) {
-        return MoviesDBApplication.get(context);
+    public static App create(Context context) {
+        return App.get(context);
     }
 
 

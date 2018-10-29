@@ -23,28 +23,20 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:indeterminate="true"
-            android:visibility="@{viewModel.status.initialProgressBarVisible ? View.VISIBLE: View.GONE}"
+            tools:visibility="@{viewModel.status.initialProgressBarVisible}"
             android:layout_centerInParent="true"
             />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@{viewModel.errorMessage}"
-            android:visibility="@{viewModel.status.errorMessageVisible ? View.VISIBLE: View.GONE}"/>
-
-        <!--<android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:data="@{viewModel.viewModelsToShow}"
-            android:adapter="@{adapter}"
-            android:visibility="@{viewModel.status.recyclerViewVisible ? View.VISIBLE: View.GONE}">
-
-        </android.support.v7.widget.RecyclerView>-->
+            android:text="@{viewModel.status.errorMessage}"
+            tools:visibility="@{viewModel.status.errorMessageVisible}"/>
 
         <ScrollView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            tools:visibility="@{viewModel.status.recyclerViewVisible}">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -63,15 +55,8 @@
                     android:layout_height="wrap_content">
 
                 </RelativeLayout>
-
-
-
-
-
             </LinearLayout>
-
         </ScrollView>
-
     </RelativeLayout>
 
 </layout>

@@ -4,9 +4,9 @@ import com.moviesdb.moviesdbmvvm.viewmodel.HorizontalListViewModel;
 
 import java.util.List;
 
-public class CastListVIewModel extends HorizontalListViewModel<CastItemViewModel> {
+public class CastListViewModel extends HorizontalListViewModel<CastItemViewModel> {
 
-    public CastListVIewModel(List<CastItemViewModel> objects, String listTitle, String seeMoreText) {
+    public CastListViewModel(List<CastItemViewModel> objects, String listTitle, String seeMoreText) {
         super(objects, listTitle, seeMoreText);
     }
 }

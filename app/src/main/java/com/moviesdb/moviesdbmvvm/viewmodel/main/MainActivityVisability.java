@@ -1,6 +1,8 @@
 package com.moviesdb.moviesdbmvvm.viewmodel.main;
 
 import android.databinding.BaseObservable;
+import android.databinding.Observable;
+import android.databinding.ObservableField;
 
 import com.moviesdb.moviesdbmvvm.viewmodel.main.ViewModelStatus;
 
@@ -14,6 +16,12 @@ public class MainActivityVisability extends BaseObservable{
     public boolean recyclerViewVisible;
     public boolean errorMessageVisible;
     public boolean initialProgressBarVisible;
+
+    public ObservableField<String> errorMessage = new ObservableField<>();
+
+    public void setErrorMessage(String message){
+        errorMessage.set(message);
+    }
 
     public void setState(ViewModelStatus state){
 

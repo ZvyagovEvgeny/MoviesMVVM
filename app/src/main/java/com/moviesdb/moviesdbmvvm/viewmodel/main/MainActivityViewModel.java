@@ -1,23 +1,23 @@
 package com.moviesdb.moviesdbmvvm.viewmodel.main;
 
 import android.content.Context;
-import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 
 
-import com.moviesdb.moviesdbmvvm.application.MoviesDBApplication;
+import com.moviesdb.moviesdbmvvm.application.App;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieQueryResult;
 import com.moviesdb.moviesdbmvvm.network.EnumUtils;
 import com.moviesdb.moviesdbmvvm.network.MovieSocialNetworkApi;
 import com.moviesdb.moviesdbmvvm.utils.Constants;
 
+import com.moviesdb.moviesdbmvvm.viewmodel.base.ViewModelBase;
 import com.moviesdb.moviesdbmvvm.viewmodel.main.movies_line.MovieListCowerFlowViewModel;
 import com.moviesdb.moviesdbmvvm.viewmodel.main.movies_line.MoviesLineButtonClickEvent;
 import com.moviesdb.moviesdbmvvm.viewmodel.main.movies_line.MoviesLineViewModel;
 import com.moviesdb.moviesdbmvvm.viewmodel.base.StoredViewModel;
 import com.moviesdb.moviesdbmvvm.viewmodel.main.movies_line.OnMovieItemSelected;
 import com.moviesdb.moviesdbmvvm.viewmodel.start_activity_params.AnotherActivity;
-import com.moviesdb.moviesdbmvvm.viewmodel.base.CustomMutableLiveData;
+import com.moviesdb.moviesdbmvvm.viewmodel.base.ObservableLiveData;
 import com.moviesdb.moviesdbmvvm.viewmodel.start_activity_params.MovieDatailsActivityParams;
 import com.moviesdb.moviesdbmvvm.viewmodel.start_activity_params.SeeMoreActivityParams;
 
@@ -30,9 +30,9 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
 import timber.log.Timber;
 
-public class MainActivityViewModel extends BaseObservable implements StoredViewModel {
+public class MainActivityViewModel extends ViewModelBase implements StoredViewModel {
     private Context context;
-    public CustomMutableLiveData<MainActivityVisability> status = new CustomMutableLiveData<>(new MainActivityVisability());
+    public ObservableLiveData<MainActivityVisability> status = new ObservableLiveData<>(new MainActivityVisability());
     public List<Object> viewModelsToShow = new ArrayList<>();
     public ObservableField<String> errorMessage = new ObservableField<>("Some error");
 
@@ -56,12 +56,13 @@ public class MainActivityViewModel extends BaseObservable implements StoredViewM
 
     public MainActivityViewModel() {
         setStatus(ViewModelStatus.INITIAL_DOWNLOADS_IN_PROGRESS);
+        refreshCommands();
     }
 
     private void download() {
 
 
-        MoviesDBApplication appController = MoviesDBApplication.create(context);
+        App appController = App.create(context);
         MovieSocialNetworkApi api = appController.getMoviesDBComponent().getMovieSocialNetworkApi();
         Constants constants = appController.getMoviesDBComponent().getConstants();
 
@@ -122,7 +123,7 @@ public class MainActivityViewModel extends BaseObservable implements StoredViewM
     }
 
     private Observable<MovieQueryResult> getMoviesList(MovieSocialNetworkApi.ListType type){
-        MoviesDBApplication appController = MoviesDBApplication.create(context);
+        App appController = App.create(context);
         MovieSocialNetworkApi api = appController.getMoviesDBComponent().getMovieSocialNetworkApi();
         return api.getMovies(type,
                         1,
@@ -161,4 +162,34 @@ public class MainActivityViewModel extends BaseObservable implements StoredViewM
         }
 
     }
+
+    boolean inEditMode;
+    public CommandVM searchCommand = new CommandVM() {
+
+        @Override
+        public void refresh() {
+            isEnabled(!inEditMode);
+        }
+
+        @Override
+        public void execute() {
+            inEditMode = true;
+            refreshCommands();
+        }
+    };
+
+    public CommandVM saveCommand = new CommandVM() {
+
+        @Override
+        public void refresh() {
+            isEnabled(inEditMode);
+
+        }
+
+        @Override
+        public void execute() {
+            inEditMode = false;
+            refreshCommands();;
+        }
+    };
 }

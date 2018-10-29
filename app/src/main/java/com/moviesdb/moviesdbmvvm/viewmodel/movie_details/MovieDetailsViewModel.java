@@ -3,14 +3,12 @@ package com.moviesdb.moviesdbmvvm.viewmodel.movie_details;
 import android.content.Context;
 import android.databinding.BaseObservable;
 
-import android.databinding.ObservableField;
-
-import com.moviesdb.moviesdbmvvm.application.MoviesDBApplication;
+import com.moviesdb.moviesdbmvvm.application.App;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.Cast;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.CreditsQueryResult;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieDetail;
 import com.moviesdb.moviesdbmvvm.network.MovieSocialNetworkApi;
-import com.moviesdb.moviesdbmvvm.viewmodel.base.CustomMutableLiveData;
+import com.moviesdb.moviesdbmvvm.viewmodel.base.ObservableLiveData;
 import com.moviesdb.moviesdbmvvm.viewmodel.base.StoredViewModel;
 import com.moviesdb.moviesdbmvvm.viewmodel.main.MainActivityVisability;
 import com.moviesdb.moviesdbmvvm.viewmodel.main.ViewModelStatus;
@@ -29,16 +27,15 @@ public class MovieDetailsViewModel extends BaseObservable implements StoredViewM
 
     private int movieId;
 
-    public CustomMutableLiveData<MainActivityVisability> status = new CustomMutableLiveData<>(new MainActivityVisability());
-    public List<Object> viewModelsToShow = new ArrayList<>();
-    public ObservableField<String> errorMessage = new ObservableField<>("Some error");
+    public ObservableLiveData<MainActivityVisability> status
+            = new ObservableLiveData<>(new MainActivityVisability());
 
     private Context context;
     private MovieDetail movieDetail;
     private CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     public BehaviorSubject<MainInfoViewModel> mainInfoViewModel = BehaviorSubject.create();
-    public BehaviorSubject<CastListVIewModel> castListViewModel = BehaviorSubject.create();
+    public BehaviorSubject<CastListViewModel> castListViewModel = BehaviorSubject.create();
 
     public MovieDetailsViewModel(int movieId , Context context){
         this.movieId = movieId;
@@ -46,14 +43,17 @@ public class MovieDetailsViewModel extends BaseObservable implements StoredViewM
         status.getValue().setState(ViewModelStatus.INITIAL_DOWNLOADS_IN_PROGRESS);
 
 
-        MoviesDBApplication application = MoviesDBApplication.create(context);
+        App application = App.create(context);
         MovieSocialNetworkApi api = application.getMoviesDBComponent().getMovieSocialNetworkApi();
         Observable<MovieDetail> movieDetailObservable = api.getMovieDetails(movieId, MovieSocialNetworkApi.Lang.ENG);
 
         Disposable d = movieDetailObservable.subscribeOn(application.subscribeScheduler())
                 .map((movieDetail)->new MainInfoViewModel(movieDetail))
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe((data)->mainInfoViewModel.onNext(data),this::onFailure);
+                .subscribe((data)->{
+                        onRecieveData();
+                        mainInfoViewModel.onNext(data);
+                    },this::onFailure);
 
         compositeDisposable.add(d);
 
@@ -63,26 +63,31 @@ public class MovieDetailsViewModel extends BaseObservable implements StoredViewM
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((data)->{
                             Timber.d("Recieved cast: "+data.objects.size());
+                            onRecieveData();
                             castListViewModel.onNext(data);
                        }
                 ,this::onFailure);
         compositeDisposable.add(d);
     }
 
-    private CastListVIewModel onRecieveCredits(CreditsQueryResult result){
+    public void onRecieveData(){
+        status.getValue().setState(ViewModelStatus.FIELDS_SHOWING);
+    }
+
+    private CastListViewModel onRecieveCredits(CreditsQueryResult result){
         List<CastItemViewModel> casts  = new ArrayList<>();
         for(Cast cast:result.getCast()){
             CastItemViewModel castItemViewModel = new CastItemViewModel(cast);
             casts.add(castItemViewModel);
         }
 
-        return new CastListVIewModel(casts,"Cast", "SEE MORE");
+        return new CastListViewModel(casts,"Cast", "");
     }
 
 
     private void onFailure(Throwable t){
         Timber.d(t);
-        errorMessage.set(t.getMessage());
+        status.getValue().setErrorMessage(t.getMessage());
         status.getValue().setState(ViewModelStatus.ERROR);
     }
 

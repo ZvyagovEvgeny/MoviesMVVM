@@ -4,9 +4,9 @@ import android.arch.lifecycle.MutableLiveData;
 import android.databinding.BaseObservable;
 import android.databinding.Observable;
 
-public class CustomMutableLiveData  <T extends BaseObservable> extends MutableLiveData<T> {
+public class ObservableLiveData<T extends BaseObservable> extends MutableLiveData<T> {
 
-    public  CustomMutableLiveData(T value){
+    public ObservableLiveData(T value){
         setValue(value);
     }
 

@@ -7,20 +7,53 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.moviesdb.moviesdbmvvm.activity.loader.ViewModelLoader;
 import com.moviesdb.moviesdbmvvm.viewmodel.base.StoredViewModel;
+import com.moviesdb.moviesdbmvvm.viewmodel.base.ViewModelBase;
 import com.moviesdb.moviesdbmvvm.viewmodel.base.ViewModelFactory;
 
 import timber.log.Timber;
 
-public abstract class BaseActivity<T extends StoredViewModel> extends AppCompatActivity {
+public abstract class BaseActivity<T extends StoredViewModel> extends AppCompatActivity  {
 
     private T viewModel;
 
     private static final int LOADER_ID = 101;
     private static String LOG_TAG = "BaseActivity";
+    private IMenuCallbackListener menuCallbackListener;
+    private MenuCommandBindings menuCommandBindings;
 
+    public IMenuCallbackListener getMenuCallbackListener() {
+        return menuCallbackListener;
+    }
+
+    public void setMenuCallbackListener(IMenuCallbackListener menuCallbackListener) {
+        this.menuCallbackListener = menuCallbackListener;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if(menuCallbackListener!=null)
+            menuCallbackListener.onPrepareOptionsMenu(menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(menuCallbackListener!=null)
+            menuCallbackListener.onOptionsItemSelected(item.getItemId());
+        return false;
+    }
+
+    protected void addMenuBinding(int menuId, ViewModelBase.CommandVM cmd, MenuCommandBindings.EnableBinding enableBinding){
+        if(menuCommandBindings ==null){
+            menuCommandBindings = new MenuCommandBindings(this);
+        }
+        menuCommandBindings.addBinding(menuId,cmd,enableBinding);
+    }
 
     private int loaderId(){
         return LOADER_ID;
@@ -32,6 +65,7 @@ public abstract class BaseActivity<T extends StoredViewModel> extends AppCompatA
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        initDagger();
         super.onCreate(savedInstanceState);
 
         Loader<T> loader = LoaderManager.getInstance(this).getLoader(loaderId());
@@ -64,8 +98,6 @@ public abstract class BaseActivity<T extends StoredViewModel> extends AppCompatA
             BaseActivity.this.viewModel = viewModel;;
             viewModel.onAttached(getContext());
             onViewModelCreatedOrRestored(viewModel);
-
-
         }
 
         @Override
@@ -113,4 +145,11 @@ public abstract class BaseActivity<T extends StoredViewModel> extends AppCompatA
     protected Context getContext(){
         return this;
     }
+
+    protected void initDagger(){
+
+    }
+
+
 }
+

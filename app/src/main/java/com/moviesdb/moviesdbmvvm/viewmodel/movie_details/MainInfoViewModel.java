@@ -3,9 +3,11 @@ package com.moviesdb.moviesdbmvvm.viewmodel.movie_details;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 
+import com.moviesdb.moviesdbmvvm.activity.Command;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.Genre;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieDetail;
 import com.moviesdb.moviesdbmvvm.network.ImagesUtils;
+import com.moviesdb.moviesdbmvvm.viewmodel.base.ViewModelBase;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,7 +17,7 @@ import java.util.List;
 
 import timber.log.Timber;
 
-public class MainInfoViewModel extends BaseObservable {
+public class MainInfoViewModel extends ViewModelBase {
 
     public ObservableField<MovieDetail> movie = new ObservableField<>();
     public ObservableField<String> backdropPath = new ObservableField<>("");
@@ -32,7 +34,7 @@ public class MainInfoViewModel extends BaseObservable {
         runtime.set(getRuntime());
         genres.set(parseGenresList(movieDetail.getGenres()));
         backdropPath.set(ImagesUtils.getImagePath(movieDetail.getBackdropPath()));
-
+        refreshCommands();
     }
 
     private String parseGenresList (List<Genre> genreList){
@@ -72,4 +74,25 @@ public class MainInfoViewModel extends BaseObservable {
         }
         return null;
     }
+
+    public void onMenuButtonClick(){
+
+    }
+
+
+    public CommandVM onAddMovieToWishListClick = new CommandVM() {
+
+        @Override
+        public void refresh() {
+            isEnabled(false);
+        }
+
+        @Override
+        public void execute() {
+            Timber.d("onAddMovieToWishListClick");
+        }
+    };
+
+
+
 }

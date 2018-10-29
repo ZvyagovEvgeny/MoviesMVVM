@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/share"
+        android:title="Share"/>
+
+
+    <item
+        android:id="@+id/addToWatchList"
+        android:title="Add to watch list">
+    </item>
+
+    <item
+        android:id="@+id/deleteFromWatchList"
+        android:title="Delete from watch list">
+    </item>
+
+    <item android:id="@+id/addAReview"
+        android:title="Add A Review"
+        />
+
+
+
+
+
+
+</menu>

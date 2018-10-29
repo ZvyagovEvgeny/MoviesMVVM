@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.moviesdb.moviesdbmvvm.R;
 import com.moviesdb.moviesdbmvvm.activity.cowerflow.ParalaxPagerTransformer;
+import com.moviesdb.moviesdbmvvm.activity.fragments.HorisontalListFragment;
 import com.moviesdb.moviesdbmvvm.databinding.MoviesCoverFlowBinding;
 import com.moviesdb.moviesdbmvvm.viewmodel.main.movies_line.MovieListCowerFlowViewModel;
 import com.moviesdb.moviesdbmvvm.viewmodel.main.movies_line.MoviesLineViewModel;
@@ -35,13 +36,20 @@ public class MainActivityRecyclerViewAdapter extends ViewModelAdapter{
     public MainActivityRecyclerViewAdapter(Picasso picasso,AppCompatActivity activity){
         registerCell(MoviesLineViewModel.class, R.layout.movies_line,BR.viewModel);
         registerCell(MovieListCowerFlowViewModel.class, R.layout.movies_cover_flow,BR.viewModel);
+
+
         this.activity = activity;
         this.picasso = picasso;
     }
 
     @Override
     protected void onBind(ViewDataBinding viewDataBinding) {
+        HorisontalListFragment horisontalListFragment = new HorisontalListFragment();
+        horisontalListFragment.getView();
+
         if(viewDataBinding instanceof  MoviesLineBinding){
+
+
             MoviesLineBinding moviesLineBinding = (MoviesLineBinding) viewDataBinding;
             moviesLineBinding.moviesLinerRV.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.HORIZONTAL,false));
             moviesLineBinding.moviesLinerRV.setAdapter(new MoviesLineAdapter(picasso));
@@ -53,7 +61,7 @@ public class MainActivityRecyclerViewAdapter extends ViewModelAdapter{
             MoviesCoverFlowBinding moviesCoverFlowBinding = (MoviesCoverFlowBinding)viewDataBinding;
             moviesCoverFlowBinding.pager.setAdapter(pagerAdapter);
             moviesCoverFlowBinding.pager.setPageTransformer(false,new ParalaxPagerTransformer());
-          //  moviesCoverFlowBinding.tabDots.setupWithViewPager(moviesCoverFlowBinding.pager, true);
+
         }
     }
 
