@@ -1,8 +1,7 @@
 package com.moviesdb.moviesdbmvvm.dagger.component;
 
-import com.moviesdb.moviesdbmvvm.activity.MainActivity;
+import com.moviesdb.moviesdbmvvm.ui.main.MainActivity;
 import com.moviesdb.moviesdbmvvm.dagger.module.MainActivityModule;
-import com.moviesdb.moviesdbmvvm.dagger.module.MovieSocialNetworkApiModule;
 import com.moviesdb.moviesdbmvvm.dagger.scope.MainActivityScope;
 
 import dagger.Component;

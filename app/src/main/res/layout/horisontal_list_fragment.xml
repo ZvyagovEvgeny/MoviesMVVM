@@ -8,10 +8,10 @@
 
         <variable
             name="adapter"
-            type="com.moviesdb.moviesdbmvvm.activity.adapter.ViewModelAdapter"/>
+            type="com.moviesdb.moviesdbmvvm.ui.base.adapter.ViewModelAdapter"/>
         <variable
             name="viewModel"
-            type="com.moviesdb.moviesdbmvvm.viewmodel.HorizontalListViewModel" />
+            type="com.moviesdb.moviesdbmvvm.ui.base.viewmodel.HorizontalListViewModel" />
     </data>
 
     <android.support.v7.widget.CardView

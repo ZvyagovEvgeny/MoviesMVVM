@@ -8,10 +8,10 @@
 
         <variable
             name="castItem"
-            type="com.moviesdb.moviesdbmvvm.viewmodel.movie_details.CastItemViewModel" />
+            type="com.moviesdb.moviesdbmvvm.ui.moviedetails.viewmodel.CastItemViewModel" />
         <variable
             name="picassoWrapper"
-            type="com.moviesdb.moviesdbmvvm.activity.adapter.PicassoWrapper"/>
+            type="com.moviesdb.moviesdbmvvm.ui.base.adapter.PicassoWrapper"/>
 
     </data>
 
