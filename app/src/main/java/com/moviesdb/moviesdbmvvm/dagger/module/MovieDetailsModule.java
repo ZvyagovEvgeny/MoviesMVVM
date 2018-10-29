@@ -2,7 +2,7 @@ package com.moviesdb.moviesdbmvvm.dagger.module;
 
 import com.moviesdb.moviesdbmvvm.ui.moviedetails.MovieDetailsActivity;
 
-import com.moviesdb.moviesdbmvvm.ui.main.activity.adapter.MoviesLineAdapter;
+import com.moviesdb.moviesdbmvvm.ui.main.adapter.MoviesLineAdapter;
 import com.moviesdb.moviesdbmvvm.dagger.scope.MovieDetailsScope;
 import com.moviesdb.moviesdbmvvm.ui.base.viewmodel.ViewModelFactory;
 import com.moviesdb.moviesdbmvvm.ui.moviedetails.viewmodel.MovieDetailsViewModel;

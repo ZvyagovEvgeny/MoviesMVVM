@@ -8,6 +8,7 @@ import com.moviesdb.moviesdbmvvm.application.App;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieQueryResult;
 import com.moviesdb.moviesdbmvvm.network.EnumUtils;
 import com.moviesdb.moviesdbmvvm.network.MovieSocialNetworkApi;
+import com.moviesdb.moviesdbmvvm.ui.start_activity_params.StartLoginForm;
 import com.moviesdb.moviesdbmvvm.utils.Constants;
 
 import com.moviesdb.moviesdbmvvm.ui.base.viewmodel.ViewModelBase;
@@ -163,32 +164,33 @@ public class MainActivityViewModel extends ViewModelBase implements StoredViewMo
 
     }
 
-    boolean inEditMode;
-    public CommandVM searchCommand = new CommandVM() {
+    boolean logined = false;
+    public CommandVM openLoginForm = new CommandVM() {
 
         @Override
         public void refresh() {
-            isEnabled(!inEditMode);
+            isEnabled(!logined);
         }
 
         @Override
         public void execute() {
-            inEditMode = true;
+            anotherActivityPublishSubject.onNext(new StartLoginForm());
+            logined = true;
             refreshCommands();
         }
     };
 
-    public CommandVM saveCommand = new CommandVM() {
+    public CommandVM logOut = new CommandVM() {
 
         @Override
         public void refresh() {
-            isEnabled(inEditMode);
+            isEnabled(logined);
 
         }
 
         @Override
         public void execute() {
-            inEditMode = false;
+            logined = false;
             refreshCommands();;
         }
     };

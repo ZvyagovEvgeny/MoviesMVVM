@@ -73,8 +73,6 @@
                             android:textSize="30sp"
                             android:layout_weight="1"/>
 
-
-
                         <ImageButton
                             android:id="@+id/menuButton"
                             android:layout_width="50dp"
@@ -85,7 +83,6 @@
                             />
 
                     </LinearLayout>
-
 
                     <LinearLayout
                         android:layout_width="wrap_content"

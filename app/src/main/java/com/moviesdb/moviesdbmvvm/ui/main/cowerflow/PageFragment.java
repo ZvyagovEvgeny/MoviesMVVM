@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.moviesdb.moviesdbmvvm.R;
-import com.moviesdb.moviesdbmvvm.ui.main.activity.adapter.MoviesCowerFlowFragmentAdapter;
+import com.moviesdb.moviesdbmvvm.ui.main.adapter.MoviesCowerFlowFragmentAdapter;
 import com.moviesdb.moviesdbmvvm.ui.main.viewmodel.movies_line.MovieListItemViewModel;
 
 import com.moviesdb.moviesdbmvvm.databinding.MovieCoverFlowItemBinding;

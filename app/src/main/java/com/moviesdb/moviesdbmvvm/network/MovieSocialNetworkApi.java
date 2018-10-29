@@ -1,13 +1,18 @@
 package com.moviesdb.moviesdbmvvm.network;
 
 import com.google.gson.annotations.SerializedName;
+import com.moviesdb.moviesdbmvvm.model.themoviedb.AuthenticationResult;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.CreditsQueryResult;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieDetail;
 import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieQueryResult;
+import com.moviesdb.moviesdbmvvm.model.themoviedb.Session;
+import com.moviesdb.moviesdbmvvm.model.themoviedb.UserLoginAndPassword;
 
 
 import io.reactivex.Observable;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -40,5 +45,14 @@ public interface MovieSocialNetworkApi {
     @GET("movie/{movie_id}/credits")
     Observable<CreditsQueryResult> getMovieCredits(@Path("movie_id") int id);
 
+
+    @GET("authentication/token/new")
+    Observable<AuthenticationResult> createRequestToken();
+
+    @POST("authentication/token/validate_with_login")
+    Observable<AuthenticationResult> validateWithLogin(@Body UserLoginAndPassword login);
+
+    @POST("authentication/session/new")
+    Observable<Session> createSession(@Body AuthenticationResult authenticationResult);
 
 }

@@ -1,4 +1,4 @@
-package com.moviesdb.moviesdbmvvm.ui.main.activity.adapter;
+package com.moviesdb.moviesdbmvvm.ui.main.adapter;
 
 import android.databinding.ViewDataBinding;
 import android.support.annotation.Nullable;

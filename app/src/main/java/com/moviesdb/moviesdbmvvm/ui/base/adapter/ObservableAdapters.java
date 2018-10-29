@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.moviesdb.moviesdbmvvm.R;
-import com.moviesdb.moviesdbmvvm.ui.main.activity.adapter.MoviesCowerFlowFragmentAdapter;
+import com.moviesdb.moviesdbmvvm.ui.main.adapter.MoviesCowerFlowFragmentAdapter;
 import com.moviesdb.moviesdbmvvm.ui.main.viewmodel.movies_line.MovieListItemViewModel;
 import com.squareup.picasso.Picasso;
 

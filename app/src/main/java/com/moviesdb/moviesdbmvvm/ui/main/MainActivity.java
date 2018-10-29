@@ -17,7 +17,7 @@ import com.moviesdb.moviesdbmvvm.dagger.module.MainActivityModule;
 import com.moviesdb.moviesdbmvvm.databinding.ActivityMainBinding;
 import com.moviesdb.moviesdbmvvm.ui.base.activity.BaseActivity;
 import com.moviesdb.moviesdbmvvm.ui.base.activity.MenuCommandBindings;
-import com.moviesdb.moviesdbmvvm.ui.main.activity.adapter.MainActivityRecyclerViewAdapter;
+import com.moviesdb.moviesdbmvvm.ui.main.adapter.MainActivityRecyclerViewAdapter;
 import com.moviesdb.moviesdbmvvm.ui.main.viewmodel.MainActivityViewModel;
 import com.moviesdb.moviesdbmvvm.ui.base.viewmodel.ViewModelFactory;
 
@@ -73,8 +73,8 @@ public class  MainActivity extends BaseActivity<MainActivityViewModel> {
     @Override
     protected void onViewModelCreatedOrRestored(@NonNull MainActivityViewModel viewModel) {
         mainActivityViewModel = viewModel;
-        addMenuBinding(R.id.search_button,mainActivityViewModel.saveCommand, MenuCommandBindings.EnableBinding.enabled);
-        addMenuBinding(R.id.searchField,mainActivityViewModel.searchCommand,MenuCommandBindings.EnableBinding.enabled);
+        addMenuBinding(R.id.loginMenu,mainActivityViewModel.openLoginForm, MenuCommandBindings.EnableBinding.visible);
+        addMenuBinding(R.id.logOut,mainActivityViewModel.logOut,MenuCommandBindings.EnableBinding.visible);
         initViewModel();
         initDataBinding();
         initMainRecyclerList();

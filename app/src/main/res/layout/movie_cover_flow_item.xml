@@ -11,7 +11,7 @@
             type="com.moviesdb.moviesdbmvvm.ui.main.viewmodel.movies_line.MovieListItemViewModel" />
         <variable
             name="adapter"
-            type="com.moviesdb.moviesdbmvvm.ui.main.activity.adapter.MoviesCowerFlowFragmentAdapter" />
+            type="com.moviesdb.moviesdbmvvm.ui.main.adapter.MoviesCowerFlowFragmentAdapter" />
     </data>
 
 
