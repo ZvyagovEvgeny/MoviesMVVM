@@ -4,9 +4,10 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 
 import com.moviesdb.moviesdbmvvm.application.App;
-import com.moviesdb.moviesdbmvvm.model.themoviedb.Cast;
-import com.moviesdb.moviesdbmvvm.model.themoviedb.CreditsQueryResult;
-import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieDetail;
+import com.moviesdb.moviesdbmvvm.data.model.themoviedb.Cast;
+import com.moviesdb.moviesdbmvvm.data.model.themoviedb.CreditsQueryResult;
+import com.moviesdb.moviesdbmvvm.data.model.themoviedb.MovieDetail;
+
 import com.moviesdb.moviesdbmvvm.network.MovieSocialNetworkApi;
 import com.moviesdb.moviesdbmvvm.ui.base.viewmodel.ObservableLiveData;
 import com.moviesdb.moviesdbmvvm.ui.base.viewmodel.StoredViewModel;

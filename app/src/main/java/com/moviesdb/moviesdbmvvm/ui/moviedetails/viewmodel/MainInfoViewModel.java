@@ -2,9 +2,10 @@ package com.moviesdb.moviesdbmvvm.ui.moviedetails.viewmodel;
 
 import android.databinding.ObservableField;
 
-import com.moviesdb.moviesdbmvvm.model.themoviedb.Genre;
-import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieDetail;
-import com.moviesdb.moviesdbmvvm.network.ImagesUtils;
+import com.moviesdb.moviesdbmvvm.data.model.themoviedb.Genre;
+import com.moviesdb.moviesdbmvvm.data.model.themoviedb.MovieDetail;
+
+import com.moviesdb.moviesdbmvvm.utils.ImagesUtils;
 import com.moviesdb.moviesdbmvvm.ui.base.viewmodel.ViewModelBase;
 
 import java.text.ParseException;

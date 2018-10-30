@@ -23,6 +23,7 @@ import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
+
 public class MovieDetailsActivity extends BaseActivity<MovieDetailsViewModel> {
     private MovieDetailsViewModel movieDetailsViewModel;
     private ActivityMovieDetailsBinding activityMovieDetailsBinding;

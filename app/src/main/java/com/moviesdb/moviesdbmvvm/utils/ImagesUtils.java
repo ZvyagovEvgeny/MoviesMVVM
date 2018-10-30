@@ -1,4 +1,4 @@
-package com.moviesdb.moviesdbmvvm.network;
+package com.moviesdb.moviesdbmvvm.utils;
 
 public class ImagesUtils {
     static public final String imagePrefix = "https://image.tmdb.org/t/p/w500/";

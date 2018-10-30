@@ -2,8 +2,8 @@ package com.moviesdb.moviesdbmvvm.ui.main.cowerflow;
 
 import android.databinding.BaseObservable;
 
-import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieBase;
-import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieQueryResult;
+import com.moviesdb.moviesdbmvvm.data.model.themoviedb.MovieBase;
+import com.moviesdb.moviesdbmvvm.data.model.themoviedb.MovieQueryResult;
 import com.moviesdb.moviesdbmvvm.ui.main.viewmodel.movies_line.MovieListItemViewModel;
 
 import java.util.ArrayList;

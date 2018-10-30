@@ -3,8 +3,9 @@ package com.moviesdb.moviesdbmvvm.ui.moviedetails.viewmodel;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 
-import com.moviesdb.moviesdbmvvm.model.themoviedb.Cast;
-import com.moviesdb.moviesdbmvvm.network.ImagesUtils;
+import com.moviesdb.moviesdbmvvm.data.model.themoviedb.Cast;
+
+import com.moviesdb.moviesdbmvvm.utils.ImagesUtils;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;

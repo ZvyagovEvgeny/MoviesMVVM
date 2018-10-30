@@ -1,12 +1,8 @@
 package com.moviesdb.moviesdbmvvm.network;
 
 import com.google.gson.annotations.SerializedName;
-import com.moviesdb.moviesdbmvvm.model.themoviedb.AuthenticationResult;
-import com.moviesdb.moviesdbmvvm.model.themoviedb.CreditsQueryResult;
-import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieDetail;
-import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieQueryResult;
-import com.moviesdb.moviesdbmvvm.model.themoviedb.Session;
-import com.moviesdb.moviesdbmvvm.model.themoviedb.UserLoginAndPassword;
+import com.moviesdb.moviesdbmvvm.data.model.themoviedb.*;
+import com.moviesdb.moviesdbmvvm.data.model.themoviedb.MovieQueryResult;
 
 
 import io.reactivex.Observable;

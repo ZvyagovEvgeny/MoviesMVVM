@@ -1,5 +1,4 @@
-
-package com.moviesdb.moviesdbmvvm.model.themoviedb;
+package com.moviesdb.moviesdbmvvm.data.model.themoviedb;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

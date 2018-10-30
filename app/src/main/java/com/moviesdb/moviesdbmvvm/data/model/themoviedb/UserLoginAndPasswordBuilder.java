@@ -1,4 +1,4 @@
-package com.moviesdb.moviesdbmvvm.model.themoviedb;
+package com.moviesdb.moviesdbmvvm.data.model.themoviedb;
 
 public class UserLoginAndPasswordBuilder {
     private String userName;

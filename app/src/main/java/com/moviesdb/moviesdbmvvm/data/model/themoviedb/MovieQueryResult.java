@@ -1,5 +1,5 @@
 
-package com.moviesdb.moviesdbmvvm.model.themoviedb;
+package com.moviesdb.moviesdbmvvm.data.model.themoviedb;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

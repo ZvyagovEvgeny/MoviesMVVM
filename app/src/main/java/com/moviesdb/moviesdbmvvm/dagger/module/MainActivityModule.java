@@ -1,5 +1,6 @@
 package com.moviesdb.moviesdbmvvm.dagger.module;
 
+import com.moviesdb.moviesdbmvvm.data.remote.AppApiHelper;
 import com.moviesdb.moviesdbmvvm.ui.main.MainActivity;
 import com.moviesdb.moviesdbmvvm.ui.main.adapter.MainActivityRecyclerViewAdapter;
 import com.moviesdb.moviesdbmvvm.ui.main.adapter.MoviesLineAdapter;
@@ -11,7 +12,7 @@ import com.squareup.picasso.Picasso;
 import dagger.Module;
 import dagger.Provides;
 
-@Module()
+@Module(includes = ApiHelperModule.class)
 public class MainActivityModule {
 
     private final MainActivity mainActivity;
@@ -35,8 +36,8 @@ public class MainActivityModule {
 
     @Provides
     @MainActivityScope
-    public ViewModelFactory<MainActivityViewModel> viewModelViewModelFactory(){
-        return ()->new MainActivityViewModel();
+    public ViewModelFactory<MainActivityViewModel> viewModelViewModelFactory(AppApiHelper appApiHelper){
+        return ()->new MainActivityViewModel(appApiHelper);
     }
 
 

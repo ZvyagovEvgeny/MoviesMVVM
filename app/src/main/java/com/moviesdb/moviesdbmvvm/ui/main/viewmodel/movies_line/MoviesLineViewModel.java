@@ -3,8 +3,8 @@ package com.moviesdb.moviesdbmvvm.ui.main.viewmodel.movies_line;
 import android.databinding.BaseObservable;
 import android.databinding.ObservableField;
 
-import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieBase;
-import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieQueryResult;
+import com.moviesdb.moviesdbmvvm.data.model.themoviedb.MovieBase;
+import com.moviesdb.moviesdbmvvm.data.model.themoviedb.MovieQueryResult;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

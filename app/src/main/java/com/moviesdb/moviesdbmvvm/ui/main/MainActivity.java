@@ -67,7 +67,7 @@ public class  MainActivity extends BaseActivity<MainActivityViewModel> {
     @NonNull
     @Override
     protected ViewModelFactory<MainActivityViewModel> getViewModelFactory() {
-       return ()->new MainActivityViewModel();
+       return ()->new MainActivityViewModel(App.create(this).getMoviesDBComponent().apiHelper());
     }
 
     @Override

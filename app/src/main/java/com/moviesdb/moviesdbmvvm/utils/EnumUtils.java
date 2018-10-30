@@ -1,4 +1,4 @@
-package com.moviesdb.moviesdbmvvm.network;
+package com.moviesdb.moviesdbmvvm.utils;
 
 import android.support.annotation.Nullable;
 

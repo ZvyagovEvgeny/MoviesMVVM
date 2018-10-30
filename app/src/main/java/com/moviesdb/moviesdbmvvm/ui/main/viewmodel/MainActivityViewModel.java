@@ -5,8 +5,10 @@ import android.databinding.ObservableField;
 
 
 import com.moviesdb.moviesdbmvvm.application.App;
-import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieQueryResult;
-import com.moviesdb.moviesdbmvvm.network.EnumUtils;
+
+import com.moviesdb.moviesdbmvvm.data.model.themoviedb.MovieQueryResult;
+import com.moviesdb.moviesdbmvvm.data.remote.ApiHelper;
+import com.moviesdb.moviesdbmvvm.utils.EnumUtils;
 import com.moviesdb.moviesdbmvvm.network.MovieSocialNetworkApi;
 import com.moviesdb.moviesdbmvvm.ui.start_activity_params.StartLoginForm;
 import com.moviesdb.moviesdbmvvm.utils.Constants;
@@ -26,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subjects.PublishSubject;
@@ -55,9 +58,21 @@ public class MainActivityViewModel extends ViewModelBase implements StoredViewMo
 
     private boolean initialized = false;
 
-    public MainActivityViewModel() {
+    private ApiHelper apiHelper;
+
+    public MainActivityViewModel(ApiHelper apiHelper) {
         setStatus(ViewModelStatus.INITIAL_DOWNLOADS_IN_PROGRESS);
+        this.apiHelper = apiHelper;
+        Disposable d = apiHelper.getSession().observeOn(AndroidSchedulers.mainThread()).subscribe((session -> {
+            if(session!=null)
+                if(session.success){
+                    logined = true;
+                    refreshCommands();
+                }
+        }));
         refreshCommands();
+        compositeDisposable.add(d);
+
     }
 
     private void download() {
@@ -175,7 +190,6 @@ public class MainActivityViewModel extends ViewModelBase implements StoredViewMo
         @Override
         public void execute() {
             anotherActivityPublishSubject.onNext(new StartLoginForm());
-            logined = true;
             refreshCommands();
         }
     };

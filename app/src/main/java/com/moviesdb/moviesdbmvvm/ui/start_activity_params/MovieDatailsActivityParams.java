@@ -3,8 +3,9 @@ package com.moviesdb.moviesdbmvvm.ui.start_activity_params;
 import android.content.Context;
 import android.content.Intent;
 
+import com.moviesdb.moviesdbmvvm.data.model.themoviedb.MovieBase;
 import com.moviesdb.moviesdbmvvm.ui.moviedetails.MovieDetailsActivity;
-import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieBase;
+
 
 public class MovieDatailsActivityParams extends AnotherActivity {
 

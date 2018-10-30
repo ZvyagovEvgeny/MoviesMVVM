@@ -7,18 +7,18 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 
 import com.moviesdb.moviesdbmvvm.application.App;
-import com.moviesdb.moviesdbmvvm.model.themoviedb.AuthenticationResult;
-import com.moviesdb.moviesdbmvvm.model.themoviedb.Session;
-import com.moviesdb.moviesdbmvvm.model.themoviedb.UserLoginAndPassword;
-import com.moviesdb.moviesdbmvvm.model.themoviedb.UserLoginAndPasswordBuilder;
+import com.moviesdb.moviesdbmvvm.data.model.themoviedb.Session;
+import com.moviesdb.moviesdbmvvm.data.remote.ApiHelper;
 import com.moviesdb.moviesdbmvvm.network.MovieSocialNetworkApi;
 import com.moviesdb.moviesdbmvvm.ui.base.viewmodel.StoredViewModel;
 
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
+import io.reactivex.subjects.PublishSubject;
 import timber.log.Timber;
 
 public class LoginViewModel extends ViewModel implements StoredViewModel {
@@ -28,61 +28,36 @@ public class LoginViewModel extends ViewModel implements StoredViewModel {
     public ObservableField<String> message = new ObservableField<>("");
     public ObservableBoolean progressBar = new ObservableBoolean(false);
 
-    MovieSocialNetworkApi api;
+    private PublishSubject<LoginActivtyState> loginActivtyState = PublishSubject.create();
+
+    public Observable<LoginActivtyState> getLoginActivtyState() {
+        return loginActivtyState;
+    }
+
+    private ApiHelper apiHelper;
+    private Session session;
     private Scheduler threadPool;
 
 
-    public LoginViewModel( MovieSocialNetworkApi api,Scheduler threadPool ){
-        this.api = api;
+    public LoginViewModel(ApiHelper apiHelper,Scheduler threadPool ){
+        this.apiHelper = apiHelper;
         this.threadPool = threadPool;
     }
 
-    private AuthenticationResult authentication;
-    private Session session;
-
-
+    CompositeDisposable compositeDisposable = new CompositeDisposable();
     public void sendLoginAndPass( ){
         if(userName.get().isEmpty() || password.get().isEmpty()){
             return;
         }
         progressBar.set(true);
 
-        Observable<AuthenticationResult> result = api.createRequestToken();
-        Disposable d = result.subscribeOn(threadPool).observeOn(threadPool).subscribe((token)->{
-            String t =  token.getRequestToken();
-            UserLoginAndPassword userLoginAndPassword = new UserLoginAndPasswordBuilder()
-                    .setUserName(userName.get())
-                    .setPassword(password.get())
-                    .setToken(t).createUserLoginAndPassword();
-
-            Observable<AuthenticationResult> authorisationResult = api.validateWithLogin(userLoginAndPassword);
-            authorisationResult.subscribeOn(threadPool).observeOn(threadPool)
-                    .subscribe((authenticationResult) -> {
-                        authentication = authenticationResult;
-                        if(authenticationResult.getSuccess()){
-                            Observable<Session> sessionObservable = api.createSession(authenticationResult);
-                            sessionObservable.observeOn(threadPool).observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe((session)->{
-                                        if(session.success){
-                                            this.session = session;
-                                            Timber.d("Session recieved"+session.getSessionId());
-                                        }
-                                        else{
-                                            Timber.d("Session error"+session.getSessionId());
-                                        }
-                                        progressBar.set(false);
-                                        message.set(session.getSessionId());
-                                    },this::onError);
-
-                        }
-                        else{
-                            Timber.d("Some error in Authorisation");
-                        }
-
-                    },this::onError);
-
-
-        },this::onError);
+        Disposable d = apiHelper.authentication(userName.get(),password.get()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(session ->{this.session = session;
+                    message.set(session.getSessionId());
+                    progressBar.set(false);
+                    loginActivtyState.onNext(LoginActivtyState.FINISH);
+                }, this::onError);
+        compositeDisposable.add(d);
 
     }
 
@@ -105,11 +80,15 @@ public class LoginViewModel extends ViewModel implements StoredViewModel {
 
     @Override
     public void onActivityDestroyed() {
-
+        compositeDisposable.dispose();
     }
 
     @Override
     public void onAttached(Context context) {
 
+    }
+
+    public enum LoginActivtyState{
+        FINISH
     }
 }

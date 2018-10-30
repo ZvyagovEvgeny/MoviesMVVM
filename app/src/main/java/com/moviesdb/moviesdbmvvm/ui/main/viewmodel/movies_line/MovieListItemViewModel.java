@@ -4,7 +4,7 @@ import android.databinding.BaseObservable;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 
-import com.moviesdb.moviesdbmvvm.model.themoviedb.MovieBase;
+import com.moviesdb.moviesdbmvvm.data.model.themoviedb.MovieBase;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
